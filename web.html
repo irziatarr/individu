@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Prediksi Penjualan UMKM - Irzi Atarr Denanta</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Modern Sans-Serif (Plus Jakarta Sans & Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN for Visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navyPrimary: '#202C54',
+                        navyDark: '#151D36',
+                        navyHover: '#2D3D75',
+                        navyLight: '#2A3A6E',
+                        navyMuted: '#5D6B8E',
+                        creamBg: '#FAF6F1',
+                        creamCard: '#F4EFE8',
+                        borderAccent: '#E2DACD',
+                        accentGold: '#B58E52',
+                        accentAmber: '#C89234'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: #FAF6F1;
+            color: #151D36;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6F1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D2C4A7;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #202C54;
+        }
+
+        /* SPA View Transitions */
+        .app-view {
+            display: none;
+        }
+        .app-view.active {
+            display: block;
+        }
+
+        .tab-btn.active-tab {
+            border-bottom: 2.5px solid #202C54;
+            color: #202C54;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-between selection:bg-navyPrimary selection:text-white font-sans">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="flex-grow w-full">
+
+        <!-- =================================================================== -->
+        <!-- VIEW 1: INITIAL LOGIN SCREEN (Split-Screen Navy & Cream)            -->
+        <!-- =================================================================== -->
+        <div id="view-login" class="app-view active">
+            <div class="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-creamBg">
+                
+                <!-- Left Split Screen (Deep Navy Theme #202C54) -->
+                <div class="lg:col-span-6 bg-navyPrimary text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden min-h-[450px] lg:min-h-screen">
+                    
+                    <!-- Decorative subtle grid background -->
+                    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#B58E52_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
+
+                    <!-- Top Left Brand Header -->
+                    <div class="relative z-10 flex items-center space-x-3">
+                        <div class="w-10 h-10 border border-accentGold/80 flex items-center justify-center font-black text-xl text-white rounded-md bg-navyDark">
+                            P
+                        </div>
+                        <span class="font-extrabold tracking-widest text-lg text-white uppercase font-sans">PREDIKSI<span class="text-accentGold">.</span></span>
+                    </div>
+
+                    <!-- Middle Content Section -->
+                    <div class="relative z-10 my-auto py-8 max-w-lg space-y-6">
+                        <span class="text-[11px] font-extrabold tracking-[0.25em] text-accentGold uppercase block font-mono">
+                            SALES PREDICTION SYSTEM
+                        </span>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.12] text-white tracking-tight">
+                            Prediksi akurat membuka jalan.
+                        </h1>
+
+                        <p class="text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
+                            Platform sistem prediksi penjualan UMKM yang membantu proses analisis data historis, forecasting stok, dan peramalan kebutuhan produk berbasis algoritma <span class="text-accentGold font-bold underline underline-offset-4">Regression</span> secara terstruktur dan transparan.
+                        </p>
+
+                        <!-- Author Tag badge in left panel -->
+                        <div class="pt-2 flex items-center space-x-3 text-xs text-slate-300">
+                            <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                            <span>Penyusun: <strong class="text-white font-semibold">Irzi Atarr Denanta</strong> (NPM: 29411007)</span>
+                        </div>
+                    </div>
+
+                    <!-- Left Split Footer -->
+                    <div class="relative z-10 pt-8 border-t border-navyLight text-[11px] text-slate-300 font-mono tracking-wider flex justify-between items-center">
+                        <span>SISTEM PREDIKSI PENJUALAN · DEMO PROTOTYPE</span>
+                        <span class="text-accentGold font-bold">OKTOBER 2026</span>
+                    </div>
+
+                </div>
+
+                <!-- Right Split Screen (Warm Light Beige #FAF6F1) -->
+                <div class="lg:col-span-6 bg-creamBg p-8 sm:p-12 lg:p-20 flex flex-col justify-center items-center">
+                    
+                    <div class="w-full max-w-md space-y-7">
+                        
+                        <!-- Header Titles -->
+                        <div class="space-y-2">
+                            <span class="text-[11px] font-extrabold tracking-widest text-navyMuted uppercase block font-mono">
+                                SELAMAT DATANG DI SISTEM PREDIKSI
+                            </span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-navyDark tracking-tight">
+                                Masuk ke akun.
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                Masuk untuk mengakses dashboard, mengolah data historis, dan memantau estimasi stok UMKM.
+                            </p>
+                        </div>
+
+                        <!-- Tab Switcher (MASUK / DAFTAR AKUN) -->
+                        <div class="flex border-b border-borderAccent text-xs font-bold tracking-wider uppercase">
+                            <button id="tab-masuk" onclick="switchLoginTab('masuk')" class="tab-btn active-tab pb-3 px-6 text-navyPrimary transition-colors focus:outline-none">
+                                MASUK
+                            </button>
+                            <button id="tab-daftar" onclick="switchLoginTab('daftar')" class="tab-btn pb-3 px-6 text-slate-400 hover:text-slate-700 transition-colors focus:outline-none">
+                                DAFTAR AKUN
+                            </button>
+                        </div>
+
+                        <!-- Login Form -->
+                        <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-5">
+                            
+                            <!-- Email Input -->
+                            <div class="space-y-1.5">
+                                <label class="block text-[11px] font-extrabold text-navyDark uppercase tracking-wider">EMAIL</label>
+                                <input type="email" id="loginEmail" placeholder="nama@email.com" value="admin@prediksi.demo" required class="w-full px-4 py-3.5 text-sm bg-white border border-borderAccent rounded-md focus:outline-none focus:ring-2 focus:ring-navyPrimary transition text-navyDark placeholder-slate-400 shadow-sm">
+                            </div>
+
+                            <!-- Password Input -->
+                            <div class="space-y-1.5">
+                                <label class="block text-[11px] font-extrabold text-navyDark uppercase tracking-wider">KATA SANDI</label>
+                                <input type="password" id="loginPassword" placeholder="Masukkan kata sandi" value="admin123" required class="w-full px-4 py-3.5 text-sm bg-white border border-borderAccent rounded-md focus:outline-none focus:ring-2 focus:ring-navyPrimary transition text-navyDark placeholder-slate-400 shadow-sm">
+                            </div>
+
+                            <!-- Options: Remember Me & Forgot Password -->
+                            <div class="flex items-center justify-between text-xs pt-1">
+                                <label class="flex items-center space-x-2 text-slate-700 cursor-pointer">
+                                    <input type="checkbox" checked class="rounded border-borderAccent text-navyPrimary focus:ring-navyPrimary">
+                                    <span class="font-medium">Ingat saya</span>
+                                </label>
+                                <a href="#" onclick="showToast('Link reset kata sandi dikirim ke email demo!', 'info'); return false;" class="font-bold text-navyPrimary hover:underline">Lupa kata sandi?</a>
+                            </div>
+
+                            <!-- Primary Navy Button -->
+                            <button type="submit" id="btn-submit-login" class="w-full py-4 bg-navyPrimary hover:bg-navyHover text-white font-bold text-xs tracking-widest uppercase rounded-md transition-all shadow-md flex items-center justify-center gap-2 group">
+                                <span>MASUK KE DASHBOARD</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </button>
+
+                        </form>
+
+                        <!-- Demo Accounts Quick Click Box -->
+                        <div class="p-4 bg-white border border-borderAccent rounded-lg text-xs text-slate-700 space-y-2.5 shadow-sm">
+                            <div class="font-extrabold text-navyDark uppercase tracking-wider text-[11px] flex justify-between items-center">
+                                <span>Akun demo cepat:</span>
+                                <span class="text-[10px] text-accentGold font-mono font-bold">KLIK UNTUK MASUK</span>
+                            </div>
+                            
+                            <div class="space-y-2 font-mono text-[11px]">
+                                <div onclick="fillAndLogin('admin')" class="p-2.5 bg-creamBg rounded border border-borderAccent hover:border-navyPrimary hover:bg-white cursor-pointer transition flex justify-between items-center group">
+                                    <div>
+                                        <span class="font-bold text-navyPrimary font-sans">Admin:</span> admin@prediksi.demo / admin123
+                                    </div>
+                                    <span class="text-[10px] text-navyPrimary font-sans font-bold group-hover:underline">Login Admin ↗</span>
+                                </div>
+
+                                <div onclick="fillAndLogin('umkm')" class="p-2.5 bg-creamBg rounded border border-borderAccent hover:border-navyPrimary hover:bg-white cursor-pointer transition flex justify-between items-center group">
+                                    <div>
+                                        <span class="font-bold text-navyPrimary font-sans">UMKM:</span> umkm@prediksi.demo / umkm123
+                                    </div>
+                                    <span class="text-[10px] text-navyPrimary font-sans font-bold group-hover:underline">Login UMKM ↗</span>
+                                </div>
+                            </div>
+
+                            <p class="text-[10px] text-slate-500 italic pt-1">
+                                Prototype lokal untuk Tugas Individu AKS — Irzi Atarr Denanta (29411007).
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- =================================================================== -->
+        <!-- VIEW 2: DASHBOARD VIEW (Deep Navy & Soft Cream Accent)              -->
+        <!-- =================================================================== -->
+        <div id="view-dashboard" class="app-view">
+            <div class="min-h-screen flex flex-col md:flex-row bg-creamBg">
+                
+                <!-- Sidebar Navigation (Deep Navy Theme #202C54) -->
+                <aside class="w-full md:w-64 bg-navyPrimary text-white flex-shrink-0 p-6 space-y-8 border-r border-navyDark flex flex-col justify-between">
+                    
+                    <div class="space-y-8">
+                        <!-- Sidebar Brand Header -->
+                        <div class="flex items-center space-x-3 pb-4 border-b border-navyLight">
+                            <div class="w-8 h-8 border border-accentGold/80 flex items-center justify-center font-black text-base text-white rounded bg-navyDark">
+                                P
+                            </div>
+                            <span class="font-extrabold tracking-widest text-base text-white uppercase font-sans">PREDIKSI<span class="text-accentGold">.</span></span>
+                        </div>
+
+                        <!-- Menu Section 1: Utama -->
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-300 block font-mono">MENU UTAMA</span>
+                            <div class="space-y-1 pt-2">
+                                <button class="w-full flex items-center space-x-3 px-3 py-2.5 rounded bg-navyDark text-white font-bold text-xs uppercase tracking-wider text-left border-l-4 border-accentGold">
+                                    <i class="fa-solid fa-table-cells-large w-4 text-center text-accentGold"></i>
+                                    <span>Dashboard</span>
+                                </button>
+                                <button onclick="showToast('Memuat data riwayat transaksi penjualan...', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-receipt w-4 text-center"></i>
+                                    <span>Riwayat Penjualan</span>
+                                </button>
+                                <button onclick="scrollToCalculator()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-boxes-stacked w-4 text-center"></i>
+                                    <span>Input Data Stok</span>
+                                </button>
+                                <button onclick="showToast('Status verifikasi data terkini: Aktif', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-chart-line w-4 text-center"></i>
+                                    <span>Status & Hasil</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Menu Section 2: Pengelolaan Admin -->
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-300 block font-mono">PENGELOLAAN ADMIN</span>
+                            <div class="space-y-1 pt-2">
+                                <button onclick="showToast('Menampilkan data 5 produk UMKM utama', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-store w-4 text-center"></i>
+                                    <span>Data Produk UMKM</span>
+                                </button>
+                                <button onclick="scrollToCalculator()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-calculator w-4 text-center"></i>
+                                    <span>Peramalan Regression</span>
+                                </button>
+                                <button onclick="showToast('Menampilkan bobot kriteria peramalan', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-sliders w-4 text-center"></i>
+                                    <span>Kriteria & Bobot</span>
+                                </button>
+                                <button onclick="openModalPdf()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-accentGold font-bold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-file-pdf w-4 text-center"></i>
+                                    <span>Laporan PDF Info</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Bottom Account & Logout -->
+                    <div class="pt-6 border-t border-navyLight space-y-3">
+                        <div class="flex items-center space-x-3 px-2">
+                            <div class="w-8 h-8 rounded-full bg-accentGold text-navyDark flex items-center justify-center font-bold text-xs">
+                                ID
+                            </div>
+                            <div class="text-left text-xs overflow-hidden">
+                                <div id="dash-user-name" class="text-white font-bold truncate">Irzi Atarr Denanta</div>
+                                <div id="dash-user-role" class="text-[10px] text-slate-300 font-mono truncate">ADMINISTRATOR</div>
+                            </div>
+                        </div>
+
+                        <button onclick="handleLogout()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-red-900/50 text-red-200 font-bold text-xs uppercase tracking-wider text-left transition border border-red-800/40">
+                            <i class="fa-solid fa-right-from-bracket w-4 text-center"></i>
+                            <span>Keluar / Logout</span>
+                        </button>
+                    </div>
+
+                </aside>
+
+                <!-- Dashboard Content Main Body -->
+                <main class="flex-grow p-6 sm:p-10 space-y-8 bg-creamBg overflow-y-auto">
+                    
+                    <!-- Dashboard Top Breadcrumb & User Header -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-borderAccent">
+                        <div>
+                            <div class="text-xs text-navyMuted font-bold uppercase tracking-wider font-mono">Sistem Prediksi Penjualan / Dashboard</div>
+                            <h1 class="text-3xl font-black text-navyDark tracking-tight mt-1">Dashboard.</h1>
+                            <p class="text-xs text-slate-600 font-medium">Ringkasan proses forecasting data historis dan rekomendasi restock barang UMKM.</p>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-3">
+                            <button onclick="openModalPdf()" class="px-3.5 py-2.5 bg-white hover:bg-creamCard text-navyDark text-xs font-bold uppercase tracking-wider rounded-md border border-borderAccent transition flex items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-circle-info text-accentGold"></i>
+                                <span>INFO MODUL PDF</span>
+                            </button>
+                            
+                            <button onclick="scrollToCalculator()" class="px-4 py-2.5 bg-navyPrimary hover:bg-navyHover text-white text-xs font-bold uppercase tracking-wider rounded-md shadow transition flex items-center gap-2">
+                                <span>KELOLA STOK ↗</span>
+                            </button>
+                            
+                            <span id="header-role-badge" class="px-3 py-2 bg-slate-200 border border-slate-300 text-navyDark font-extrabold text-xs uppercase rounded-md font-mono">
+                                ADMINISTRATOR
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 4 Summary Metric Cards (Clean White with Deep Navy Icons) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                <span>TOTAL TRANSAKSI</span>
+                                <i class="fa-solid fa-receipt text-navyPrimary"></i>
+                            </div>
+                            <div class="text-4xl font-black text-navyDark tracking-tight">1,280</div>
+                            <p class="text-[11px] text-slate-500">Seluruh data riwayat terdata</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                <span>TERVERIFIKASI</span>
+                                <i class="fa-solid fa-check text-emerald-600"></i>
+                            </div>
+                            <div class="text-4xl font-black text-navyDark tracking-tight">1,240</div>
+                            <p class="text-[11px] text-slate-500">Transaksi valid diolah regresi</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                <span>MENUNGGU FORECAST</span>
+                                <i class="fa-solid fa-boxes-stacked text-amber-600"></i>
+                            </div>
+                            <div class="text-4xl font-black text-navyDark tracking-tight">40</div>
+                            <p class="text-[11px] text-slate-500">Produk jadwal restock minggu ini</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                <span>KUOTA REKOMENDASI</span>
+                                <i class="fa-solid fa-certificate text-accentGold"></i>
+                            </div>
+                            <div class="text-4xl font-black text-navyDark tracking-tight">12</div>
+                            <p class="text-[11px] text-slate-500">Produk prioritas skor tertinggi</p>
+                        </div>
+
+                    </div>
+
+                    <!-- Main Dashboard Grid (Kandidat Teratas & Bobot Kriteria) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- Left Table: Kandidat Teratas (Restock Candidates) -->
+                        <div class="lg:col-span-7 bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-4">
+                            <div class="flex justify-between items-center border-b border-borderAccent pb-3">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-navyMuted font-mono">RINGKASAN</span>
+                                    <h3 class="text-xl font-bold text-navyDark tracking-tight">Kandidat Teratas Restock</h3>
+                                    <p class="text-xs text-slate-500">Peringkat produk berdasarkan proyeksi algoritma Regression & SAW</p>
+                                </div>
+                                <a href="#" onclick="showToast('Menampilkan seluruh 12 produk rekomendasi', 'info'); return false;" class="text-xs font-bold text-navyPrimary hover:underline uppercase tracking-wider">LIHAT SEMUA ↗</a>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-borderAccent text-navyMuted uppercase font-extrabold text-[10px] tracking-wider font-mono">
+                                            <th class="py-3 px-2">NAMA PRODUK / SKU</th>
+                                            <th class="py-3 px-2 text-center">SKOR REGRESI / SAW</th>
+                                            <th class="py-3 px-2 text-right">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-borderAccent">
+                                        <tr class="hover:bg-creamBg transition-colors">
+                                            <td class="py-3 px-2">
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">KP</span>
+                                                    <div>
+                                                        <div class="font-bold text-navyDark">Keripik Pisang Lampung 250g</div>
+                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-001</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.948</td>
+                                            <td class="py-3 px-2 text-right">
+                                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">Rekomendasi</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="hover:bg-creamBg transition-colors">
+                                            <td class="py-3 px-2">
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">KS</span>
+                                                    <div>
+                                                        <div class="font-bold text-navyDark">Kopi Susu Gula Aren 250ml</div>
+                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-004</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.902</td>
+                                            <td class="py-3 px-2 text-right">
+                                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">Rekomendasi</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="hover:bg-creamBg transition-colors">
+                                            <td class="py-3 px-2">
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">RB</span>
+                                                    <div>
+                                                        <div class="font-bold text-navyDark">Roti Bakar Bandung Spesial</div>
+                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-003</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.853</td>
+                                            <td class="py-3 px-2 text-right">
+                                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">Rekomendasi</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="hover:bg-creamBg transition-colors">
+                                            <td class="py-3 px-2">
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">KS</span>
+                                                    <div>
+                                                        <div class="font-bold text-navyDark">Kaos Sablon Distro Cotton</div>
+                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-002</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.728</td>
+                                            <td class="py-3 px-2 text-right">
+                                                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full font-bold text-[10px]">Cadangan</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="hover:bg-creamBg transition-colors">
+                                            <td class="py-3 px-2">
+                                                <div class="flex items-center space-x-3">
+                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">SC</span>
+                                                    <div>
+                                                        <div class="font-bold text-navyDark">Sambal Cumi Pedas Kemasan</div>
+                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-005</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.700</td>
+                                            <td class="py-3 px-2 text-right">
+                                                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full font-bold text-[10px]">Cadangan</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Komposisi Bobot & Kriteria Parameter -->
+                        <div class="lg:col-span-5 bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                            <div class="border-b border-borderAccent pb-3">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-navyMuted font-mono">RINGKASAN</span>
+                                <h3 class="text-xl font-bold text-navyDark tracking-tight">Komposisi Bobot Algoritma</h3>
+                                <p class="text-xs text-slate-500">Kriteria parameter peramalan kebutuhan stok barang</p>
+                            </div>
+
+                            <div class="space-y-4 text-xs">
+                                <div>
+                                    <div class="flex justify-between font-bold text-navyDark mb-1">
+                                        <span>Tren Penjualan Harian (Slope b)</span>
+                                        <span class="font-mono text-navyPrimary font-extrabold">35%</span>
+                                    </div>
+                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 35%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between font-bold text-navyDark mb-1">
+                                        <span>Data Historis Penjualan (3 Bulan)</span>
+                                        <span class="font-mono text-navyPrimary font-extrabold">30%</span>
+                                    </div>
+                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 30%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between font-bold text-navyDark mb-1">
+                                        <span>Fluktuasi Musiman & Event</span>
+                                        <span class="font-mono text-navyPrimary font-extrabold">20%</span>
+                                    </div>
+                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 20%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between font-bold text-navyDark mb-1">
+                                        <span>Margin Keuntungan Produk</span>
+                                        <span class="font-mono text-navyPrimary font-extrabold">15%</span>
+                                    </div>
+                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 15%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-creamBg border-l-4 border-navyPrimary rounded-r text-xs text-navyDark leading-relaxed">
+                                Hasil proyeksi Regresi Linier merupakan <strong>rekomendasi sistem terkomputerisasi</strong>. Keputusan akhir jumlah restock barang tetap dapat disesuaikan oleh pemilik UMKM.
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- SECTION: INTERACTIVE REGRESSION CALCULATOR FOR DASHBOARD -->
+                    <div id="section-calculator" class="bg-white p-6 sm:p-8 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-borderAccent pb-4 gap-2">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-navyPrimary font-mono bg-navyPrimary/10 px-2 py-0.5 rounded">FITUR LIVE FORECASTING</span>
+                                <h2 class="text-2xl font-bold text-navyDark tracking-tight mt-1">Simulasi Peramalan Regresi Linier</h2>
+                                <p class="text-xs text-slate-500">Uji coba simulasi perhitungan rumus Y = a + b(X) untuk proyeksi stok bulan ke-5.</p>
+                            </div>
+                            <div class="text-xs font-mono font-bold bg-navyPrimary text-white px-3.5 py-1.5 rounded-md">
+                                Rumus: Y = a + b(X)
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                            <!-- Input Form -->
+                            <div class="lg:col-span-5 bg-creamBg p-5 rounded-lg border border-borderAccent space-y-4">
+                                <h3 class="text-sm font-bold uppercase tracking-wider text-navyDark border-b border-borderAccent pb-2">Input Data Historis Penjualan</h3>
+                                <form id="regressionForm" onsubmit="calculateRegression(event)" class="space-y-3 text-xs">
+                                    <div>
+                                        <label class="block font-extrabold text-navyDark uppercase mb-1">Nama Produk UMKM</label>
+                                        <input type="text" id="productName" value="Kopi Susu Gula Aren 250ml" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white text-navyDark font-semibold focus:ring-2 focus:ring-navyPrimary" required>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 1 (Unit)</label>
+                                            <input type="number" id="m1" value="120" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                        </div>
+                                        <div>
+                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 2 (Unit)</label>
+                                            <input type="number" id="m2" value="145" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                        </div>
+                                        <div>
+                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 3 (Unit)</label>
+                                            <input type="number" id="m3" value="160" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                        </div>
+                                        <div>
+                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 4 (Unit)</label>
+                                            <input type="number" id="m4" value="190" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block font-bold text-slate-700 uppercase mb-1">Sisa Stok Fisik Saat Ini</label>
+                                        <input type="number" id="currentStock" value="45" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                    </div>
+                                    <button type="submit" class="w-full py-3 bg-navyPrimary hover:bg-navyHover text-white font-bold tracking-wider uppercase rounded-md transition shadow flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-calculator text-accentGold"></i>
+                                        <span>Hitung Prediksi Regresi</span>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Calculation Result & Dynamic Chart -->
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="bg-navyPrimary text-white p-5 rounded-lg border border-navyDark space-y-3 shadow">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <span class="text-[10px] text-accentGold uppercase tracking-widest block font-mono font-bold">Hasil Peramalan Regresi</span>
+                                            <h4 id="resProductName" class="text-lg font-bold text-white tracking-tight">Kopi Susu Gula Aren 250ml</h4>
+                                        </div>
+                                        <span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase bg-emerald-500 text-navyDark font-mono">
+                                            Restock Disarankan
+                                        </span>
+                                    </div>
+
+                                    <div class="grid grid-cols-3 gap-3 pt-2 text-center">
+                                        <div class="bg-navyDark p-3 rounded-md border border-navyLight">
+                                            <span class="text-[10px] text-slate-300 block uppercase font-mono">Prediksi Bln 5</span>
+                                            <span id="predictedSalesVal" class="text-xl font-black text-accentGold font-mono">212 Unit</span>
+                                        </div>
+                                        <div class="bg-navyDark p-3 rounded-md border border-navyLight">
+                                            <span class="text-[10px] text-slate-300 block uppercase font-mono">Stok Gudang</span>
+                                            <span id="currentStockVal" class="text-xl font-black text-white font-mono">45 Unit</span>
+                                        </div>
+                                        <div class="bg-navyDark p-3 rounded-md border border-navyLight">
+                                            <span class="text-[10px] text-slate-300 block uppercase font-mono">Order Restock</span>
+                                            <span id="recommendedRestockVal" class="text-xl font-black text-emerald-400 font-mono">167 Unit</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-creamBg p-4 rounded-lg border border-borderAccent">
+                                    <div class="h-48 w-full">
+                                        <canvas id="regressionChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- =================================================================== -->
+    <!-- MODAL: INFORMATION PDF SUMMARY (Irzi Atarr Denanta - 29411007)      -->
+    <!-- =================================================================== -->
+    <div id="modal-pdf-info" class="fixed inset-0 z-50 hidden bg-navyDark/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white max-w-2xl w-full rounded-lg shadow-2xl border border-borderAccent overflow-hidden my-8">
+            <div class="bg-navyPrimary text-white p-6 flex justify-between items-center border-b border-navyDark">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded bg-accentGold text-navyDark font-black flex items-center justify-center text-xs font-mono">
+                        PDF
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white tracking-tight">Sistem Prediksi Penjualan UMKM</h3>
+                        <p class="text-[11px] text-accentGold font-mono">Tugas Individu AKS • Irzi Atarr Denanta (29411007)</p>
+                    </div>
+                </div>
+                <button onclick="closeModalPdf()" class="text-slate-300 hover:text-white p-2">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-6 text-xs text-navyDark max-h-[70vh] overflow-y-auto">
+                
+                <!-- Section 1: 5 Whys Analysis -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-base border-b border-borderAccent pb-1 text-navyDark">
+                        1. Analisis 5 Whys (Akar Masalah UMKM)
+                    </h4>
+                    <div class="space-y-2 bg-creamBg p-4 rounded-md border border-borderAccent font-mono text-[11px]">
+                        <div><strong class="text-navyPrimary">Why 1:</strong> Kenapa stok sering salah? UMKM tidak tahu estimasi penjualan periode mendatang.</div>
+                        <div><strong class="text-navyPrimary">Why 2:</strong> Kenapa tidak tahu estimasi? Karena pengadaan hanya mengandalkan insting tebakan.</div>
+                        <div><strong class="text-navyPrimary">Why 3:</strong> Kenapa pakai insting? Belum ada perhitungan matematis yang diterapkan.</div>
+                        <div><strong class="text-navyPrimary">Why 4:</strong> Kenapa tidak dihitung? Data riwayat transaksi manual belum diolah.</div>
+                        <div class="pt-2 border-t border-borderAccent font-bold text-navyDark">
+                            <strong class="text-emerald-700">Akar Masalah (Root Cause):</strong> Tidak adanya sistem terkomputerisasi yang memanfaatkan data historis transaksi untuk peramalan (forecasting) penjualan.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Algoritma Regression -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-base border-b border-borderAccent pb-1 text-navyDark">
+                        2. Metode Algoritma Regression
+                    </h4>
+                    <p class="leading-relaxed">
+                        Algoritma <strong>Regression</strong> digunakan untuk memprediksi angka permintaan penjualan di masa depan berdasarkan tren pola numerik masa lalu.
+                    </p>
+                    <div class="bg-navyPrimary text-white p-4 rounded-md text-center font-mono space-y-1">
+                        <span class="text-accentGold text-[10px] block font-sans">PERSAMAAN REGRESI LINIER</span>
+                        <div class="text-xl font-bold">Y = a + b(X)</div>
+                        <p class="text-[10px] text-slate-300 font-sans">Dimana Y = Hasil Prediksi Penjualan, X = Periode Waktu, a = Intersept, b = Slope Tren</p>
+                    </div>
+                </div>
+
+                <!-- Section 3: Dampak Implementasi -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-base border-b border-borderAccent pb-1 text-navyDark">
+                        3. Dampak Implementasi Bagi UMKM
+                    </h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-md">
+                            <strong class="text-emerald-800 block mb-1">Mencegah Overstock</strong>
+                            <span>Menghindari modal tertahan pada barang tidak laku & rusak.</span>
+                        </div>
+                        <div class="p-3 bg-blue-50 border border-blue-200 rounded-md">
+                            <strong class="text-blue-800 block mb-1">Mencegah Understock</strong>
+                            <span>Menjaga pemenuhan permintaan konsumen secara tepat waktu.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Author Details -->
+                <div class="p-4 bg-navyDark text-white rounded-md text-xs space-y-1">
+                    <div class="font-bold text-accentGold font-mono">DOKUMENTASI MAHASISWA:</div>
+                    <div>Nama: <strong>Irzi Atarr Denanta</strong></div>
+                    <div>NPM: <strong>29411007</strong></div>
+                    <div>Mata Kuliah: Tugas Individu AKS — Oktober 2026</div>
+                </div>
+
+            </div>
+
+            <div class="p-4 bg-creamBg border-t border-borderAccent text-right">
+                <button onclick="closeModalPdf()" class="px-5 py-2.5 bg-navyPrimary hover:bg-navyHover text-white text-xs font-bold uppercase rounded-md font-mono">
+                    Tutup Informasi
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =================================================================== -->
+    <!-- JAVASCRIPT APP LOGIC & STATE NAVIGATION                             -->
+    <!-- =================================================================== -->
+    <script>
+        // App State
+        let currentUser = null;
+        let regressionChartInstance = null;
+
+        // Toast Alert Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-navyPrimary border-accentGold text-white' : 'bg-amber-900 border-amber-500 text-white';
+            const icon = type === 'success' ? 'fa-circle-check text-accentGold' : 'fa-circle-info text-amber-300';
+
+            toast.className = `pointer-events-auto px-4 py-3 rounded-md border shadow-xl text-xs flex items-center space-x-3 transition-all transform translate-y-2 opacity-0 ${bgColor}`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i><span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            // Animate out & remove
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // View Switcher Function (Login vs Dashboard)
+        function switchView(viewName) {
+            document.querySelectorAll('.app-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            const targetView = document.getElementById(`view-${viewName}`);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (viewName === 'dashboard') {
+                setTimeout(() => {
+                    initRegressionChart();
+                }, 100);
+            }
+        }
+
+        // Tab Switcher inside Login View (MASUK / DAFTAR AKUN)
+        function switchLoginTab(tab) {
+            const btnMasuk = document.getElementById('tab-masuk');
+            const btnDaftar = document.getElementById('tab-daftar');
+
+            if (tab === 'masuk') {
+                btnMasuk.classList.add('active-tab');
+                btnDaftar.classList.remove('active-tab');
+                btnDaftar.classList.add('text-slate-400');
+            } else {
+                btnDaftar.classList.add('active-tab');
+                btnMasuk.classList.remove('active-tab');
+                btnMasuk.classList.add('text-slate-400');
+                showToast('Fitur pendaftaran akun baru terbuka!', 'info');
+            }
+        }
+
+        // Auto-fill Credential & Trigger Direct Login
+        function fillAndLogin(role) {
+            const emailInput = document.getElementById('loginEmail');
+            const passInput = document.getElementById('loginPassword');
+
+            if (role === 'admin') {
+                emailInput.value = 'admin@prediksi.demo';
+                passInput.value = 'admin123';
+            } else {
+                emailInput.value = 'umkm@prediksi.demo';
+                passInput.value = 'umkm123';
+            }
+
+            // Trigger submit form
+            document.getElementById('loginForm').dispatchEvent(new Event('submit', { cancelable: true }));
+        }
+
+        // Form Submit Handler for Login
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+
+            if (!email || !pass) {
+                showToast('Harap isi email dan kata sandi!', 'info');
+                return;
+            }
+
+            const isAdmin = email.includes('admin');
+            currentUser = {
+                email: email,
+                name: isAdmin ? 'Irzi Atarr Denanta (Admin)' : 'Pemilik UMKM Demo',
+                role: isAdmin ? 'ADMINISTRATOR' : 'PEMILIK UMKM'
+            };
+
+            // Update User Profile text in Dashboard
+            document.getElementById('dash-user-name').innerText = currentUser.name;
+            document.getElementById('dash-user-role').innerText = currentUser.role;
+            document.getElementById('header-role-badge').innerText = currentUser.role;
+
+            showToast(`Login berhasil! Selamat datang, ${currentUser.name}`, 'success');
+
+            // Switch view to Dashboard
+            switchView('dashboard');
+        }
+
+        // Logout Handler
+        function handleLogout() {
+            currentUser = null;
+            showToast('Anda telah keluar dari akun.', 'info');
+            switchView('login');
+        }
+
+        // Scroll to Calculator
+        function scrollToCalculator() {
+            const el = document.getElementById('section-calculator');
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Modal PDF Controllers
+        function openModalPdf() {
+            document.getElementById('modal-pdf-info').classList.remove('hidden');
+        }
+
+        function closeModalPdf() {
+            document.getElementById('modal-pdf-info').classList.add('hidden');
+        }
+
+        // Linear Regression Calculation Logic: Y = a + bX
+        function calculateRegression(e) {
+            if (e) e.preventDefault();
+
+            const pName = document.getElementById('productName').value;
+            const m1 = parseFloat(document.getElementById('m1').value) || 0;
+            const m2 = parseFloat(document.getElementById('m2').value) || 0;
+            const m3 = parseFloat(document.getElementById('m3').value) || 0;
+            const m4 = parseFloat(document.getElementById('m4').value) || 0;
+            const currStock = parseFloat(document.getElementById('currentStock').value) || 0;
+
+            const xArr = [1, 2, 3, 4];
+            const yArr = [m1, m2, m3, m4];
+            const n = 4;
+
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+            for (let i = 0; i < n; i++) {
+                sumX += xArr[i];
+                sumY += yArr[i];
+                sumXY += xArr[i] * yArr[i];
+                sumX2 += xArr[i] * xArr[i];
+            }
+
+            const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+            const a = (sumY - b * sumX) / n;
+            const predictedMonth5 = Math.round(a + b * 5);
+            const recommendedRestock = Math.max(0, predictedMonth5 - currStock);
+
+            // Update Result DOM
+            document.getElementById('resProductName').innerText = pName;
+            document.getElementById('predictedSalesVal').innerText = `${predictedMonth5} Unit`;
+            document.getElementById('currentStockVal').innerText = `${currStock} Unit`;
+            document.getElementById('recommendedRestockVal').innerText = `${recommendedRestock} Unit`;
+
+            // Re-render Chart
+            updateRegressionChart(yArr, predictedMonth5);
+        }
+
+        // Chart.js Chart Initialization & Updates
+        function initRegressionChart() {
+            calculateRegression(null);
+        }
+
+        function updateRegressionChart(yData, predictedVal) {
+            const ctx = document.getElementById('regressionChart');
+            if (!ctx) return;
+
+            if (regressionChartInstance) {
+                regressionChartInstance.destroy();
+            }
+
+            regressionChartInstance = new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['Bln 1', 'Bln 2', 'Bln 3', 'Bln 4', 'Bln 5 (Prediksi)'],
+                    datasets: [
+                        {
+                            label: 'Data Historis Penjualan',
+                            data: [...yData, null],
+                            borderColor: '#202C54',
+                            backgroundColor: '#202C54',
+                            borderWidth: 2.5,
+                            pointRadius: 4
+                        },
+                        {
+                            label: 'Proyeksi Regresi (Forecast)',
+                            data: [null, null, null, yData[3], predictedVal],
+                            borderColor: '#B58E52',
+                            backgroundColor: 'rgba(181, 142, 82, 0.15)',
+                            borderWidth: 2.5,
+                            borderDash: [5, 5],
+                            pointRadius: 6,
+                            pointBackgroundColor: '#B58E52'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'bottom', labels: { font: { size: 10, family: 'Plus Jakarta Sans' } } }
+                    },
+                    scales: {
+                        y: { grid: { color: '#E2DACD' }, ticks: { font: { size: 10, family: 'Plus Jakarta Sans' } } },
+                        x: { grid: { display: false }, ticks: { font: { size: 10, family: 'Plus Jakarta Sans' } } }
+                    }
+                }
+            });
+        }
+
+        // App Initialization
+        window.onload = function() {
+            // App starts strictly at 'view-login'
+            switchView('login');
+        };
+    </script>
+</body>
+</html>
