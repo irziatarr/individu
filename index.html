@@ -53,6 +53,7 @@
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #FAF6F1;
@@ -73,10 +74,27 @@
             display: block;
         }
 
+        .sub-sec {
+            display: none;
+        }
+        .sub-sec.active-sec {
+            display: block;
+        }
+
         .tab-btn.active-tab {
             border-bottom: 2.5px solid #202C54;
             color: #202C54;
             font-weight: 700;
+        }
+
+        .nav-item.active-nav {
+            background-color: #151D36;
+            color: #FFFFFF;
+            font-weight: 700;
+            border-left: 4px solid #B58E52;
+        }
+        .nav-item.active-nav i {
+            color: #B58E52;
         }
     </style>
 </head>
@@ -89,23 +107,22 @@
     <main class="flex-grow w-full">
 
         <!-- =================================================================== -->
-        <!-- VIEW 1: INITIAL LOGIN SCREEN (Split-Screen Navy & Cream)            -->
+        <!-- VIEW 1: LOGIN SCREEN (Split-Screen Navy & Cream)                    -->
         <!-- =================================================================== -->
         <div id="view-login" class="app-view active">
             <div class="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-creamBg">
                 
-                <!-- Left Split Screen (Deep Navy Theme #202C54) -->
+                <!-- Left Split Screen -->
                 <div class="lg:col-span-6 bg-navyPrimary text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden min-h-[450px] lg:min-h-screen">
                     
-                    <!-- Decorative subtle grid background -->
                     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#B58E52_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
 
                     <!-- Top Left Brand Header -->
                     <div class="relative z-10 flex items-center space-x-3">
                         <div class="w-10 h-10 border border-accentGold/80 flex items-center justify-center font-black text-xl text-white rounded-md bg-navyDark">
-                            P
+                            SP
                         </div>
-                        <span class="font-extrabold tracking-widest text-lg text-white uppercase font-sans">PREDIKSI<span class="text-accentGold">.</span></span>
+                        <span class="font-extrabold tracking-widest text-lg text-white uppercase font-sans">SISTEM PREDIKSI<span class="text-accentGold">.</span></span>
                     </div>
 
                     <!-- Middle Content Section -->
@@ -122,7 +139,7 @@
                             Platform sistem prediksi penjualan UMKM yang membantu proses analisis data historis, forecasting stok, dan peramalan kebutuhan produk berbasis algoritma <span class="text-accentGold font-bold underline underline-offset-4">Regression</span> secara terstruktur dan transparan.
                         </p>
 
-                        <!-- Author Tag badge in left panel -->
+                        <!-- Author Tag badge -->
                         <div class="pt-2 flex items-center space-x-3 text-xs text-slate-300">
                             <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
                             <span>Penyusun: <strong class="text-white font-semibold">Irzi Atarr Denanta</strong> (NPM: 29411007)</span>
@@ -137,7 +154,7 @@
 
                 </div>
 
-                <!-- Right Split Screen (Warm Light Beige #FAF6F1) -->
+                <!-- Right Split Screen -->
                 <div class="lg:col-span-6 bg-creamBg p-8 sm:p-12 lg:p-20 flex flex-col justify-center items-center">
                     
                     <div class="w-full max-w-md space-y-7">
@@ -155,7 +172,7 @@
                             </p>
                         </div>
 
-                        <!-- Tab Switcher (MASUK / DAFTAR AKUN) -->
+                        <!-- Tab Switcher -->
                         <div class="flex border-b border-borderAccent text-xs font-bold tracking-wider uppercase">
                             <button id="tab-masuk" onclick="switchLoginTab('masuk')" class="tab-btn active-tab pb-3 px-6 text-navyPrimary transition-colors focus:outline-none">
                                 MASUK
@@ -167,20 +184,16 @@
 
                         <!-- Login Form -->
                         <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-5">
-                            
-                            <!-- Email Input -->
                             <div class="space-y-1.5">
                                 <label class="block text-[11px] font-extrabold text-navyDark uppercase tracking-wider">EMAIL</label>
                                 <input type="email" id="loginEmail" placeholder="nama@email.com" value="admin@prediksi.demo" required class="w-full px-4 py-3.5 text-sm bg-white border border-borderAccent rounded-md focus:outline-none focus:ring-2 focus:ring-navyPrimary transition text-navyDark placeholder-slate-400 shadow-sm">
                             </div>
 
-                            <!-- Password Input -->
                             <div class="space-y-1.5">
                                 <label class="block text-[11px] font-extrabold text-navyDark uppercase tracking-wider">KATA SANDI</label>
                                 <input type="password" id="loginPassword" placeholder="Masukkan kata sandi" value="admin123" required class="w-full px-4 py-3.5 text-sm bg-white border border-borderAccent rounded-md focus:outline-none focus:ring-2 focus:ring-navyPrimary transition text-navyDark placeholder-slate-400 shadow-sm">
                             </div>
 
-                            <!-- Options: Remember Me & Forgot Password -->
                             <div class="flex items-center justify-between text-xs pt-1">
                                 <label class="flex items-center space-x-2 text-slate-700 cursor-pointer">
                                     <input type="checkbox" checked class="rounded border-borderAccent text-navyPrimary focus:ring-navyPrimary">
@@ -189,12 +202,10 @@
                                 <a href="#" onclick="showToast('Link reset kata sandi dikirim ke email demo!', 'info'); return false;" class="font-bold text-navyPrimary hover:underline">Lupa kata sandi?</a>
                             </div>
 
-                            <!-- Primary Navy Button -->
                             <button type="submit" id="btn-submit-login" class="w-full py-4 bg-navyPrimary hover:bg-navyHover text-white font-bold text-xs tracking-widest uppercase rounded-md transition-all shadow-md flex items-center justify-center gap-2 group">
                                 <span>MASUK KE DASHBOARD</span>
                                 <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
                             </button>
-
                         </form>
 
                         <!-- Demo Accounts Quick Click Box -->
@@ -234,7 +245,7 @@
 
 
         <!-- =================================================================== -->
-        <!-- VIEW 2: DASHBOARD VIEW (Deep Navy & Soft Cream Accent)              -->
+        <!-- VIEW 2: MAIN SYSTEM LAYOUT WITH PERSISTENT SIDEBAR                  -->
         <!-- =================================================================== -->
         <div id="view-dashboard" class="app-view">
             <div class="min-h-screen flex flex-col md:flex-row bg-creamBg">
@@ -246,28 +257,28 @@
                         <!-- Sidebar Brand Header -->
                         <div class="flex items-center space-x-3 pb-4 border-b border-navyLight">
                             <div class="w-8 h-8 border border-accentGold/80 flex items-center justify-center font-black text-base text-white rounded bg-navyDark">
-                                P
+                                SP
                             </div>
-                            <span class="font-extrabold tracking-widest text-base text-white uppercase font-sans">PREDIKSI<span class="text-accentGold">.</span></span>
+                            <span class="font-extrabold tracking-widest text-base text-white uppercase font-sans">SISTEM PREDIKSI<span class="text-accentGold">.</span></span>
                         </div>
 
                         <!-- Menu Section 1: Utama -->
                         <div class="space-y-1">
                             <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-300 block font-mono">MENU UTAMA</span>
                             <div class="space-y-1 pt-2">
-                                <button class="w-full flex items-center space-x-3 px-3 py-2.5 rounded bg-navyDark text-white font-bold text-xs uppercase tracking-wider text-left border-l-4 border-accentGold">
-                                    <i class="fa-solid fa-table-cells-large w-4 text-center text-accentGold"></i>
+                                <button id="nav-dashboard" onclick="navigateToSection('sec-dashboard')" class="nav-item active-nav w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                    <i class="fa-solid fa-table-cells-large w-4 text-center"></i>
                                     <span>Dashboard</span>
                                 </button>
-                                <button onclick="showToast('Memuat data riwayat transaksi penjualan...', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                <button id="nav-riwayat" onclick="navigateToSection('sec-riwayat')" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
                                     <i class="fa-solid fa-receipt w-4 text-center"></i>
                                     <span>Riwayat Penjualan</span>
                                 </button>
-                                <button onclick="scrollToCalculator()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                <button id="nav-stok" onclick="navigateToSection('sec-stok')" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
                                     <i class="fa-solid fa-boxes-stacked w-4 text-center"></i>
                                     <span>Input Data Stok</span>
                                 </button>
-                                <button onclick="showToast('Status verifikasi data terkini: Aktif', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                <button id="nav-status" onclick="navigateToSection('sec-status')" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
                                     <i class="fa-solid fa-chart-line w-4 text-center"></i>
                                     <span>Status & Hasil</span>
                                 </button>
@@ -278,19 +289,19 @@
                         <div class="space-y-1">
                             <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-300 block font-mono">PENGELOLAAN ADMIN</span>
                             <div class="space-y-1 pt-2">
-                                <button onclick="showToast('Menampilkan data 5 produk UMKM utama', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                <button id="nav-produk" onclick="navigateToSection('sec-produk')" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
                                     <i class="fa-solid fa-store w-4 text-center"></i>
                                     <span>Data Produk UMKM</span>
                                 </button>
-                                <button onclick="scrollToCalculator()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                <button id="nav-peramalan" onclick="navigateToSection('sec-peramalan')" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
                                     <i class="fa-solid fa-calculator w-4 text-center"></i>
                                     <span>Peramalan Regression</span>
                                 </button>
-                                <button onclick="showToast('Menampilkan bobot kriteria peramalan', 'info')" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
+                                <button id="nav-kriteria" onclick="navigateToSection('sec-kriteria')" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-slate-200 font-semibold text-xs uppercase tracking-wider text-left transition">
                                     <i class="fa-solid fa-sliders w-4 text-center"></i>
                                     <span>Kriteria & Bobot</span>
                                 </button>
-                                <button onclick="openModalPdf()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-accentGold font-bold text-xs uppercase tracking-wider text-left transition">
+                                <button onclick="openModalPdf()" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded hover:bg-navyLight text-accentGold font-bold text-xs uppercase tracking-wider text-left transition border border-accentGold/20 mt-2">
                                     <i class="fa-solid fa-file-pdf w-4 text-center"></i>
                                     <span>Laporan PDF Info</span>
                                 </button>
@@ -324,9 +335,9 @@
                     <!-- Dashboard Top Breadcrumb & User Header -->
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-4 border-b border-borderAccent">
                         <div>
-                            <div class="text-xs text-navyMuted font-bold uppercase tracking-wider font-mono">Sistem Prediksi Penjualan / Dashboard</div>
-                            <h1 class="text-3xl font-black text-navyDark tracking-tight mt-1">Dashboard.</h1>
-                            <p class="text-xs text-slate-600 font-medium">Ringkasan proses forecasting data historis dan rekomendasi restock barang UMKM.</p>
+                            <div id="section-breadcrumb" class="text-xs text-navyMuted font-bold uppercase tracking-wider font-mono">Sistem Prediksi Penjualan / Dashboard</div>
+                            <h1 id="section-title" class="text-3xl font-black text-navyDark tracking-tight mt-1">Dashboard.</h1>
+                            <p id="section-subtitle" class="text-xs text-slate-600 font-medium">Ringkasan proses forecasting data historis dan rekomendasi restock barang UMKM.</p>
                         </div>
 
                         <div class="flex flex-wrap items-center gap-3">
@@ -335,7 +346,7 @@
                                 <span>INFO MODUL PDF</span>
                             </button>
                             
-                            <button onclick="scrollToCalculator()" class="px-4 py-2.5 bg-navyPrimary hover:bg-navyHover text-white text-xs font-bold uppercase tracking-wider rounded-md shadow transition flex items-center gap-2">
+                            <button onclick="navigateToSection('sec-peramalan')" class="px-4 py-2.5 bg-navyPrimary hover:bg-navyHover text-white text-xs font-bold uppercase tracking-wider rounded-md shadow transition flex items-center gap-2">
                                 <span>KELOLA STOK ↗</span>
                             </button>
                             
@@ -345,299 +356,557 @@
                         </div>
                     </div>
 
-                    <!-- 4 Summary Metric Cards (Clean White with Deep Navy Icons) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                    <!-- =================================================================== -->
+                    <!-- SUB-SECTION 1: DASHBOARD OVERVIEW                                   -->
+                    <!-- =================================================================== -->
+                    <div id="sec-dashboard" class="sub-sec active-sec space-y-8">
                         
-                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
-                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
-                                <span>TOTAL TRANSAKSI</span>
-                                <i class="fa-solid fa-receipt text-navyPrimary"></i>
+                        <!-- 4 Summary Metric Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            
+                            <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                                <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                    <span>TOTAL TRANSAKSI</span>
+                                    <i class="fa-solid fa-receipt text-navyPrimary"></i>
+                                </div>
+                                <div id="metric-total-tx" class="text-4xl font-black text-navyDark tracking-tight">1,280</div>
+                                <p class="text-[11px] text-slate-500">Seluruh data riwayat terdata</p>
                             </div>
-                            <div class="text-4xl font-black text-navyDark tracking-tight">1,280</div>
-                            <p class="text-[11px] text-slate-500">Seluruh data riwayat terdata</p>
+
+                            <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                                <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                    <span>TERVERIFIKASI</span>
+                                    <i class="fa-solid fa-check text-emerald-600"></i>
+                                </div>
+                                <div id="metric-verified" class="text-4xl font-black text-navyDark tracking-tight">1,240</div>
+                                <p class="text-[11px] text-slate-500">Transaksi valid diolah regresi</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                                <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                    <span>MENUNGGU FORECAST</span>
+                                    <i class="fa-solid fa-boxes-stacked text-amber-600"></i>
+                                </div>
+                                <div id="metric-pending" class="text-4xl font-black text-navyDark tracking-tight">40</div>
+                                <p class="text-[11px] text-slate-500">Produk jadwal restock minggu ini</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
+                                <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
+                                    <span>KUOTA REKOMENDASI</span>
+                                    <i class="fa-solid fa-certificate text-accentGold"></i>
+                                </div>
+                                <div id="metric-recommend" class="text-4xl font-black text-navyDark tracking-tight">12</div>
+                                <p class="text-[11px] text-slate-500">Produk prioritas skor tertinggi</p>
+                            </div>
+
                         </div>
 
-                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
-                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
-                                <span>TERVERIFIKASI</span>
-                                <i class="fa-solid fa-check text-emerald-600"></i>
+                        <!-- Main Dashboard Grid -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            
+                            <!-- Left Table: Kandidat Teratas -->
+                            <div class="lg:col-span-7 bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-4">
+                                <div class="flex justify-between items-center border-b border-borderAccent pb-3">
+                                    <div>
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-navyMuted font-mono">RINGKASAN</span>
+                                        <h3 class="text-xl font-bold text-navyDark tracking-tight">Kandidat Teratas Restock</h3>
+                                        <p class="text-xs text-slate-500">Peringkat produk berdasarkan proyeksi algoritma Regression & SAW</p>
+                                    </div>
+                                    <button onclick="navigateToSection('sec-status')" class="text-xs font-bold text-navyPrimary hover:underline uppercase tracking-wider">LIHAT SEMUA ↗</button>
+                                </div>
+
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left text-xs border-collapse">
+                                        <thead>
+                                            <tr class="border-b border-borderAccent text-navyMuted uppercase font-extrabold text-[10px] tracking-wider font-mono">
+                                                <th class="py-3 px-2">NAMA PRODUK / SKU</th>
+                                                <th class="py-3 px-2 text-center">SKOR REGRESI / SAW</th>
+                                                <th class="py-3 px-2 text-right">STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dash-top-candidates-body" class="divide-y divide-borderAccent">
+                                            <!-- Dynamic Rows JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="text-4xl font-black text-navyDark tracking-tight">1,240</div>
-                            <p class="text-[11px] text-slate-500">Transaksi valid diolah regresi</p>
+
+                            <!-- Right Panel: Komposisi Bobot -->
+                            <div class="lg:col-span-5 bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                                <div class="border-b border-borderAccent pb-3 flex justify-between items-center">
+                                    <div>
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-navyMuted font-mono">RINGKASAN</span>
+                                        <h3 class="text-xl font-bold text-navyDark tracking-tight">Komposisi Bobot Algoritma</h3>
+                                        <p class="text-xs text-slate-500">Kriteria parameter peramalan kebutuhan stok barang</p>
+                                    </div>
+                                    <button onclick="navigateToSection('sec-kriteria')" class="text-xs font-bold text-navyPrimary hover:underline uppercase">UBAH ↗</button>
+                                </div>
+
+                                <div class="space-y-4 text-xs">
+                                    <div>
+                                        <div class="flex justify-between font-bold text-navyDark mb-1">
+                                            <span>Tren Penjualan Harian (Slope b)</span>
+                                            <span id="weight-lbl-slope" class="font-mono text-navyPrimary font-extrabold">35%</span>
+                                        </div>
+                                        <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                            <div id="weight-bar-slope" class="bg-navyPrimary h-2.5 rounded-full" style="width: 35%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between font-bold text-navyDark mb-1">
+                                            <span>Data Historis Penjualan (3 Bulan)</span>
+                                            <span id="weight-lbl-history" class="font-mono text-navyPrimary font-extrabold">30%</span>
+                                        </div>
+                                        <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                            <div id="weight-bar-history" class="bg-navyPrimary h-2.5 rounded-full" style="width: 30%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between font-bold text-navyDark mb-1">
+                                            <span>Fluktuasi Musiman & Event</span>
+                                            <span id="weight-lbl-season" class="font-mono text-navyPrimary font-extrabold">20%</span>
+                                        </div>
+                                        <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                            <div id="weight-bar-season" class="bg-navyPrimary h-2.5 rounded-full" style="width: 20%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex justify-between font-bold text-navyDark mb-1">
+                                            <span>Margin Keuntungan Produk</span>
+                                            <span id="weight-lbl-margin" class="font-mono text-navyPrimary font-extrabold">15%</span>
+                                        </div>
+                                        <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
+                                            <div id="weight-bar-margin" class="bg-navyPrimary h-2.5 rounded-full" style="width: 15%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 bg-creamBg border-l-4 border-navyPrimary rounded-r text-xs text-navyDark leading-relaxed">
+                                    Hasil proyeksi Regresi Linier merupakan <strong>rekomendasi sistem terkomputerisasi</strong>. Keputusan akhir jumlah restock barang tetap dapat disesuaikan oleh pemilik UMKM.
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
-                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
-                                <span>MENUNGGU FORECAST</span>
-                                <i class="fa-solid fa-boxes-stacked text-amber-600"></i>
+                        <!-- Quick Simulator Card in Dashboard -->
+                        <div class="bg-white p-6 sm:p-8 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-borderAccent pb-4 gap-2">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-navyPrimary font-mono bg-navyPrimary/10 px-2 py-0.5 rounded">FITUR LIVE FORECASTING</span>
+                                    <h2 class="text-2xl font-bold text-navyDark tracking-tight mt-1">Simulasi Peramalan Regresi Linier</h2>
+                                    <p class="text-xs text-slate-500">Uji coba simulasi perhitungan rumus Y = a + b(X) untuk proyeksi stok bulan ke-5.</p>
+                                </div>
+                                <div class="text-xs font-mono font-bold bg-navyPrimary text-white px-3.5 py-1.5 rounded-md">
+                                    Rumus: Y = a + b(X)
+                                </div>
                             </div>
-                            <div class="text-4xl font-black text-navyDark tracking-tight">40</div>
-                            <p class="text-[11px] text-slate-500">Produk jadwal restock minggu ini</p>
-                        </div>
 
-                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-2">
-                            <div class="flex justify-between items-center text-navyMuted text-xs font-bold uppercase tracking-wider font-mono">
-                                <span>KUOTA REKOMENDASI</span>
-                                <i class="fa-solid fa-certificate text-accentGold"></i>
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                                <!-- Input Form -->
+                                <div class="lg:col-span-5 bg-creamBg p-5 rounded-lg border border-borderAccent space-y-4">
+                                    <h3 class="text-sm font-bold uppercase tracking-wider text-navyDark border-b border-borderAccent pb-2">Input Data Historis Penjualan</h3>
+                                    <form id="regressionForm" onsubmit="calculateRegression(event)" class="space-y-3 text-xs">
+                                        <div>
+                                            <label class="block font-extrabold text-navyDark uppercase mb-1">Nama Produk UMKM</label>
+                                            <select id="productSelectCalc" onchange="autoFillCalcForm()" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white text-navyDark font-semibold focus:ring-2 focus:ring-navyPrimary">
+                                                <!-- Dynamic product options JS -->
+                                            </select>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <div>
+                                                <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 1 (Unit)</label>
+                                                <input type="number" id="m1" value="120" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                            </div>
+                                            <div>
+                                                <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 2 (Unit)</label>
+                                                <input type="number" id="m2" value="145" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                            </div>
+                                            <div>
+                                                <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 3 (Unit)</label>
+                                                <input type="number" id="m3" value="160" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                            </div>
+                                            <div>
+                                                <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 4 (Unit)</label>
+                                                <input type="number" id="m4" value="190" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block font-bold text-slate-700 uppercase mb-1">Sisa Stok Fisik Saat Ini</label>
+                                            <input type="number" id="currentStock" value="45" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                        </div>
+                                        <button type="submit" class="w-full py-3 bg-navyPrimary hover:bg-navyHover text-white font-bold tracking-wider uppercase rounded-md transition shadow flex items-center justify-center gap-2">
+                                            <i class="fa-solid fa-calculator text-accentGold"></i>
+                                            <span>Hitung Prediksi Regresi</span>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Result & Chart -->
+                                <div class="lg:col-span-7 space-y-4">
+                                    <div class="bg-navyPrimary text-white p-5 rounded-lg border border-navyDark space-y-3 shadow">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <span class="text-[10px] text-accentGold uppercase tracking-widest block font-mono font-bold">Hasil Peramalan Regresi</span>
+                                                <h4 id="resProductName" class="text-lg font-bold text-white tracking-tight">Keripik Pisang Lampung 250g</h4>
+                                            </div>
+                                            <span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase bg-emerald-500 text-navyDark font-mono">
+                                                Restock Disarankan
+                                            </span>
+                                        </div>
+
+                                        <div class="grid grid-cols-3 gap-3 pt-2 text-center">
+                                            <div class="bg-navyDark p-3 rounded-md border border-navyLight">
+                                                <span class="text-[10px] text-slate-300 block uppercase font-mono">Prediksi Bln 5</span>
+                                                <span id="predictedSalesVal" class="text-xl font-black text-accentGold font-mono">212 Unit</span>
+                                            </div>
+                                            <div class="bg-navyDark p-3 rounded-md border border-navyLight">
+                                                <span class="text-[10px] text-slate-300 block uppercase font-mono">Stok Gudang</span>
+                                                <span id="currentStockVal" class="text-xl font-black text-white font-mono">45 Unit</span>
+                                            </div>
+                                            <div class="bg-navyDark p-3 rounded-md border border-navyLight">
+                                                <span class="text-[10px] text-slate-300 block uppercase font-mono">Order Restock</span>
+                                                <span id="recommendedRestockVal" class="text-xl font-black text-emerald-400 font-mono">167 Unit</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-creamBg p-4 rounded-lg border border-borderAccent">
+                                        <div class="h-48 w-full">
+                                            <canvas id="regressionChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="text-4xl font-black text-navyDark tracking-tight">12</div>
-                            <p class="text-[11px] text-slate-500">Produk prioritas skor tertinggi</p>
                         </div>
 
                     </div>
 
-                    <!-- Main Dashboard Grid (Kandidat Teratas & Bobot Kriteria) -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        
-                        <!-- Left Table: Kandidat Teratas (Restock Candidates) -->
-                        <div class="lg:col-span-7 bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-4">
-                            <div class="flex justify-between items-center border-b border-borderAccent pb-3">
+
+                    <!-- =================================================================== -->
+                    <!-- SUB-SECTION 2: RIWAYAT PENJUALAN                                    -->
+                    <!-- =================================================================== -->
+                    <div id="sec-riwayat" class="sub-sec space-y-6">
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-4">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-borderAccent pb-4 gap-4">
                                 <div>
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-navyMuted font-mono">RINGKASAN</span>
-                                    <h3 class="text-xl font-bold text-navyDark tracking-tight">Kandidat Teratas Restock</h3>
-                                    <p class="text-xs text-slate-500">Peringkat produk berdasarkan proyeksi algoritma Regression & SAW</p>
+                                    <h3 class="text-xl font-bold text-navyDark">Riwayat Transaksi Penjualan</h3>
+                                    <p class="text-xs text-slate-500">Catatan transaksi harian dan bulanan yang digunakan sebagai basis data regresi.</p>
                                 </div>
-                                <a href="#" onclick="showToast('Menampilkan seluruh 12 produk rekomendasi', 'info'); return false;" class="text-xs font-bold text-navyPrimary hover:underline uppercase tracking-wider">LIHAT SEMUA ↗</a>
+                                <button onclick="openModalTransaction()" class="px-4 py-2.5 bg-navyPrimary hover:bg-navyHover text-white text-xs font-bold uppercase tracking-wider rounded-md shadow transition flex items-center gap-2">
+                                    <i class="fa-solid fa-plus text-accentGold"></i>
+                                    <span>Tambah Transaksi Baru</span>
+                                </button>
+                            </div>
+
+                            <!-- Filter & Search Bar -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-navyMuted uppercase font-mono mb-1">Cari Produk / SKU</label>
+                                    <input type="text" id="searchTxInput" onkeyup="renderTransactionsTable()" placeholder="Ketik nama produk..." class="w-full px-3 py-2 text-xs border border-borderAccent rounded bg-creamBg focus:bg-white focus:outline-none focus:ring-1 focus:ring-navyPrimary">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-navyMuted uppercase font-mono mb-1">Filter Produk</label>
+                                    <select id="filterTxProduct" onchange="renderTransactionsTable()" class="w-full px-3 py-2 text-xs border border-borderAccent rounded bg-creamBg focus:bg-white focus:outline-none">
+                                        <option value="ALL">Semua Produk</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-end">
+                                    <button onclick="resetTxFilter()" class="w-full py-2 bg-creamCard hover:bg-borderAccent text-navyDark font-bold text-xs rounded transition uppercase">
+                                        Reset Filter
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Transactions Table -->
+                            <div class="overflow-x-auto pt-2">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-borderAccent text-navyMuted uppercase font-extrabold text-[10px] tracking-wider font-mono bg-creamBg">
+                                            <th class="py-3 px-3">ID TRANSAKSI</th>
+                                            <th class="py-3 px-3">TANGGAL</th>
+                                            <th class="py-3 px-3">NAMA PRODUK / SKU</th>
+                                            <th class="py-3 px-3 text-center">JUMLAH TERJUAL</th>
+                                            <th class="py-3 px-3 text-right">HARGA SATUAN</th>
+                                            <th class="py-3 px-3 text-right">TOTAL TRANSAKSI</th>
+                                            <th class="py-3 px-3 text-center">AKSI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tx-table-body" class="divide-y divide-borderAccent">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- =================================================================== -->
+                    <!-- SUB-SECTION 3: INPUT DATA STOK                                      -->
+                    <!-- =================================================================== -->
+                    <div id="sec-stok" class="sub-sec space-y-6">
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                            <div class="border-b border-borderAccent pb-4 flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-xl font-bold text-navyDark">Manajemen Data Stok Fisik Gudang</h3>
+                                    <p class="text-xs text-slate-500">Kelola jumlah stok awal, sisa stok akhir, dan ambang batas minimum (Safety Stock).</p>
+                                </div>
+                                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded text-xs font-bold font-mono">
+                                    Status Inventory: TERHUBUNG
+                                </span>
+                            </div>
+
+                            <!-- Stock Alert Banner -->
+                            <div id="stock-warning-banner" class="hidden p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r text-xs text-amber-900 space-y-1">
+                                <strong class="font-bold flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Peringatan Stok Kritis!</strong>
+                                <p id="stock-warning-text">Beberapa produk telah menyentuh atau di bawah batas minimum Safety Stock. Segera lakukan restock order!</p>
                             </div>
 
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-xs border-collapse">
                                     <thead>
-                                        <tr class="border-b border-borderAccent text-navyMuted uppercase font-extrabold text-[10px] tracking-wider font-mono">
-                                            <th class="py-3 px-2">NAMA PRODUK / SKU</th>
-                                            <th class="py-3 px-2 text-center">SKOR REGRESI / SAW</th>
-                                            <th class="py-3 px-2 text-right">STATUS</th>
+                                        <tr class="border-b border-borderAccent text-navyMuted uppercase font-extrabold text-[10px] tracking-wider font-mono bg-creamBg">
+                                            <th class="py-3 px-3">SKU</th>
+                                            <th class="py-3 px-3">NAMA PRODUK</th>
+                                            <th class="py-3 px-3 text-center">STOK SAAT INI</th>
+                                            <th class="py-3 px-3 text-center">SAFETY STOCK (MIN)</th>
+                                            <th class="py-3 px-3 text-center">KONDISI STOK</th>
+                                            <th class="py-3 px-3 text-center">INPUT STOK BARU</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-borderAccent">
-                                        <tr class="hover:bg-creamBg transition-colors">
-                                            <td class="py-3 px-2">
-                                                <div class="flex items-center space-x-3">
-                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">KP</span>
-                                                    <div>
-                                                        <div class="font-bold text-navyDark">Keripik Pisang Lampung 250g</div>
-                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-001</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.948</td>
-                                            <td class="py-3 px-2 text-right">
-                                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">Rekomendasi</span>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="hover:bg-creamBg transition-colors">
-                                            <td class="py-3 px-2">
-                                                <div class="flex items-center space-x-3">
-                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">KS</span>
-                                                    <div>
-                                                        <div class="font-bold text-navyDark">Kopi Susu Gula Aren 250ml</div>
-                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-004</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.902</td>
-                                            <td class="py-3 px-2 text-right">
-                                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">Rekomendasi</span>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="hover:bg-creamBg transition-colors">
-                                            <td class="py-3 px-2">
-                                                <div class="flex items-center space-x-3">
-                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">RB</span>
-                                                    <div>
-                                                        <div class="font-bold text-navyDark">Roti Bakar Bandung Spesial</div>
-                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-003</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.853</td>
-                                            <td class="py-3 px-2 text-right">
-                                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">Rekomendasi</span>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="hover:bg-creamBg transition-colors">
-                                            <td class="py-3 px-2">
-                                                <div class="flex items-center space-x-3">
-                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">KS</span>
-                                                    <div>
-                                                        <div class="font-bold text-navyDark">Kaos Sablon Distro Cotton</div>
-                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-002</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.728</td>
-                                            <td class="py-3 px-2 text-right">
-                                                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full font-bold text-[10px]">Cadangan</span>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="hover:bg-creamBg transition-colors">
-                                            <td class="py-3 px-2">
-                                                <div class="flex items-center space-x-3">
-                                                    <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">SC</span>
-                                                    <div>
-                                                        <div class="font-bold text-navyDark">Sambal Cumi Pedas Kemasan</div>
-                                                        <div class="text-[10px] text-slate-500 font-mono">SKU: UMKM-005</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">0.700</td>
-                                            <td class="py-3 px-2 text-right">
-                                                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full font-bold text-[10px]">Cadangan</span>
-                                            </td>
-                                        </tr>
+                                    <tbody id="stock-table-body" class="divide-y divide-borderAccent">
+                                        <!-- Dynamic JS -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
-                        <!-- Right Panel: Komposisi Bobot & Kriteria Parameter -->
-                        <div class="lg:col-span-5 bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-6">
-                            <div class="border-b border-borderAccent pb-3">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-navyMuted font-mono">RINGKASAN</span>
-                                <h3 class="text-xl font-bold text-navyDark tracking-tight">Komposisi Bobot Algoritma</h3>
-                                <p class="text-xs text-slate-500">Kriteria parameter peramalan kebutuhan stok barang</p>
-                            </div>
-
-                            <div class="space-y-4 text-xs">
-                                <div>
-                                    <div class="flex justify-between font-bold text-navyDark mb-1">
-                                        <span>Tren Penjualan Harian (Slope b)</span>
-                                        <span class="font-mono text-navyPrimary font-extrabold">35%</span>
-                                    </div>
-                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
-                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 35%"></div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="flex justify-between font-bold text-navyDark mb-1">
-                                        <span>Data Historis Penjualan (3 Bulan)</span>
-                                        <span class="font-mono text-navyPrimary font-extrabold">30%</span>
-                                    </div>
-                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
-                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 30%"></div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="flex justify-between font-bold text-navyDark mb-1">
-                                        <span>Fluktuasi Musiman & Event</span>
-                                        <span class="font-mono text-navyPrimary font-extrabold">20%</span>
-                                    </div>
-                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
-                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 20%"></div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="flex justify-between font-bold text-navyDark mb-1">
-                                        <span>Margin Keuntungan Produk</span>
-                                        <span class="font-mono text-navyPrimary font-extrabold">15%</span>
-                                    </div>
-                                    <div class="w-full bg-creamCard h-2.5 rounded-full overflow-hidden">
-                                        <div class="bg-navyPrimary h-2.5 rounded-full" style="width: 15%"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="p-4 bg-creamBg border-l-4 border-navyPrimary rounded-r text-xs text-navyDark leading-relaxed">
-                                Hasil proyeksi Regresi Linier merupakan <strong>rekomendasi sistem terkomputerisasi</strong>. Keputusan akhir jumlah restock barang tetap dapat disesuaikan oleh pemilik UMKM.
-                            </div>
-                        </div>
-
                     </div>
 
 
-                    <!-- SECTION: INTERACTIVE REGRESSION CALCULATOR FOR DASHBOARD -->
-                    <div id="section-calculator" class="bg-white p-6 sm:p-8 rounded-lg border border-borderAccent shadow-sm space-y-6">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-borderAccent pb-4 gap-2">
-                            <div>
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-navyPrimary font-mono bg-navyPrimary/10 px-2 py-0.5 rounded">FITUR LIVE FORECASTING</span>
-                                <h2 class="text-2xl font-bold text-navyDark tracking-tight mt-1">Simulasi Peramalan Regresi Linier</h2>
-                                <p class="text-xs text-slate-500">Uji coba simulasi perhitungan rumus Y = a + b(X) untuk proyeksi stok bulan ke-5.</p>
+                    <!-- =================================================================== -->
+                    <!-- SUB-SECTION 4: STATUS & HASIL FORECASTING                           -->
+                    <!-- =================================================================== -->
+                    <div id="sec-status" class="sub-sec space-y-6">
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                            <div class="border-b border-borderAccent pb-4">
+                                <h3 class="text-xl font-bold text-navyDark">Status & Laporan Peramalan Lengkap</h3>
+                                <p class="text-xs text-slate-500">Hasil estimasi regresi linier seluruh produk UMKM untuk perencanaan pengadaan periode depan.</p>
                             </div>
-                            <div class="text-xs font-mono font-bold bg-navyPrimary text-white px-3.5 py-1.5 rounded-md">
-                                Rumus: Y = a + b(X)
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-creamBg border border-borderAccent rounded-lg text-center space-y-1">
+                                    <span class="text-[10px] font-bold text-navyMuted uppercase font-mono">TOTAL MODEL REGRESI</span>
+                                    <div id="stat-model-count" class="text-3xl font-black text-navyDark">5 Produk</div>
+                                    <p class="text-[10px] text-slate-500">Persamaan Linier Y = a + bX Aktif</p>
+                                </div>
+                                <div class="p-4 bg-creamBg border border-borderAccent rounded-lg text-center space-y-1">
+                                    <span class="text-[10px] font-bold text-navyMuted uppercase font-mono">RATA-RATA AKURASI R²</span>
+                                    <div class="text-3xl font-black text-emerald-600">93.6%</div>
+                                    <p class="text-[10px] text-slate-500">Kesesuaian Tren Data Historis</p>
+                                </div>
+                                <div class="p-4 bg-creamBg border border-borderAccent rounded-lg text-center space-y-1">
+                                    <span class="text-[10px] font-bold text-navyMuted uppercase font-mono">TOTAL ANGGARAN ESTIMASI</span>
+                                    <div id="stat-budget-est" class="text-2xl font-black text-navyPrimary">Rp 14.850.000</div>
+                                    <p class="text-[10px] text-slate-500">Biaya Pengadaan Barang Disarankan</p>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-borderAccent text-navyMuted uppercase font-extrabold text-[10px] tracking-wider font-mono bg-creamBg">
+                                            <th class="py-3 px-3">SKU & PRODUK</th>
+                                            <th class="py-3 px-3 text-center">PERSAMAAN LINIER</th>
+                                            <th class="py-3 px-3 text-center">TREN SLOPE (b)</th>
+                                            <th class="py-3 px-3 text-center">PREDIKSI Y (BLN 5)</th>
+                                            <th class="py-3 px-3 text-center">STOK GUDANG</th>
+                                            <th class="py-3 px-3 text-center">REKOMENDASI ORDER</th>
+                                            <th class="py-3 px-3 text-right">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="status-table-body" class="divide-y divide-borderAccent">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                            <!-- Input Form -->
-                            <div class="lg:col-span-5 bg-creamBg p-5 rounded-lg border border-borderAccent space-y-4">
-                                <h3 class="text-sm font-bold uppercase tracking-wider text-navyDark border-b border-borderAccent pb-2">Input Data Historis Penjualan</h3>
-                                <form id="regressionForm" onsubmit="calculateRegression(event)" class="space-y-3 text-xs">
-                                    <div>
-                                        <label class="block font-extrabold text-navyDark uppercase mb-1">Nama Produk UMKM</label>
-                                        <input type="text" id="productName" value="Kopi Susu Gula Aren 250ml" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white text-navyDark font-semibold focus:ring-2 focus:ring-navyPrimary" required>
+
+                    <!-- =================================================================== -->
+                    <!-- SUB-SECTION 5: DATA PRODUK UMKM (CRUD)                             -->
+                    <!-- =================================================================== -->
+                    <div id="sec-produk" class="sub-sec space-y-6">
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-4">
+                            <div class="flex justify-between items-center border-b border-borderAccent pb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold text-navyDark">Katalog Data Produk UMKM</h3>
+                                    <p class="text-xs text-slate-500">Kelola master data barang, HPP, harga jual, dan margin keuntungan.</p>
+                                </div>
+                                <button onclick="openModalProduct()" class="px-4 py-2.5 bg-navyPrimary hover:bg-navyHover text-white text-xs font-bold uppercase tracking-wider rounded-md shadow transition flex items-center gap-2">
+                                    <i class="fa-solid fa-plus text-accentGold"></i>
+                                    <span>Tambah Produk Baru</span>
+                                </button>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-borderAccent text-navyMuted uppercase font-extrabold text-[10px] tracking-wider font-mono bg-creamBg">
+                                            <th class="py-3 px-3">SKU</th>
+                                            <th class="py-3 px-3">NAMA PRODUK</th>
+                                            <th class="py-3 px-3">KATEGORI</th>
+                                            <th class="py-3 px-3 text-right">HPP (MODAL)</th>
+                                            <th class="py-3 px-3 text-right">HARGA JUAL</th>
+                                            <th class="py-3 px-3 text-center">MARGIN PROFIT</th>
+                                            <th class="py-3 px-3 text-center">AKSI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="product-crud-body" class="divide-y divide-borderAccent">
+                                        <!-- Dynamic JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- =================================================================== -->
+                    <!-- SUB-SECTION 6: PERAMALAN REGRESSION ENGINE (ADVANCED STEP-BY-STEP) -->
+                    <!-- =================================================================== -->
+                    <div id="sec-peramalan" class="sub-sec space-y-6">
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                            <div class="border-b border-borderAccent pb-4">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-navyPrimary font-mono bg-navyPrimary/10 px-2 py-0.5 rounded">MATHEMATICAL ENGINE</span>
+                                <h3 class="text-2xl font-bold text-navyDark tracking-tight mt-1">Modul Perhitungan Detail Regresi Linier</h3>
+                                <p class="text-xs text-slate-500">Rincian tabel perkalian matriks & substitusi nilai ke rumus Y = a + bX secara rasional.</p>
+                            </div>
+
+                            <div class="bg-creamBg p-4 rounded-lg border border-borderAccent flex flex-col md:flex-row justify-between items-center gap-4">
+                                <div class="w-full md:w-1/2">
+                                    <label class="block text-xs font-bold text-navyDark uppercase mb-1">Pilih Produk Untuk Dihitung Regresinya:</label>
+                                    <select id="selectEngineProduct" onchange="renderEngineCalculation()" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-bold text-xs text-navyDark">
+                                        <!-- Dynamic JS -->
+                                    </select>
+                                </div>
+                                <div class="w-full md:w-auto text-right font-mono text-xs">
+                                    <span class="text-slate-500">Formula Rumus:</span>
+                                    <div class="font-bold text-navyPrimary text-sm">b = (nΣXY - ΣXΣY) / (nΣX² - (ΣX)²)</div>
+                                    <div class="font-bold text-navyPrimary text-sm">a = (ΣY - bΣX) / n</div>
+                                </div>
+                            </div>
+
+                            <!-- Matrix Table -->
+                            <div class="space-y-3">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-navyDark font-mono">1. Tabel Matriks Perkalian (n = 4 Periode)</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-center text-xs border border-borderAccent">
+                                        <thead class="bg-navyPrimary text-white font-mono text-[11px]">
+                                            <tr>
+                                                <th class="py-2.5">PERIODE (X)</th>
+                                                <th class="py-2.5">PENJUALAN TERJUAL (Y)</th>
+                                                <th class="py-2.5">X · Y</th>
+                                                <th class="py-2.5">X²</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="engine-matrix-body" class="divide-y divide-borderAccent bg-white font-mono">
+                                            <!-- Dynamic JS -->
+                                        </tbody>
+                                        <tfoot id="engine-matrix-foot" class="bg-creamCard font-bold font-mono text-navyDark border-t-2 border-navyPrimary">
+                                            <!-- Dynamic JS -->
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Step Calculations -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                                <div class="p-4 bg-creamBg rounded-lg border border-borderAccent space-y-2 text-xs">
+                                    <h4 class="font-bold text-navyDark uppercase font-mono border-b border-borderAccent pb-1">2. Perhitungan Slope (b) & Intercept (a)</h4>
+                                    <div id="engine-step-details" class="font-mono text-[11px] space-y-1 text-slate-700">
+                                        <!-- Dynamic JS -->
                                     </div>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <div>
-                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 1 (Unit)</label>
-                                            <input type="number" id="m1" value="120" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
-                                        </div>
-                                        <div>
-                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 2 (Unit)</label>
-                                            <input type="number" id="m2" value="145" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
-                                        </div>
-                                        <div>
-                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 3 (Unit)</label>
-                                            <input type="number" id="m3" value="160" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
-                                        </div>
-                                        <div>
-                                            <label class="block font-bold text-slate-700 uppercase mb-1">Bulan 4 (Unit)</label>
-                                            <input type="number" id="m4" value="190" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
-                                        </div>
+                                </div>
+
+                                <div class="p-4 bg-navyPrimary text-white rounded-lg space-y-3 shadow">
+                                    <h4 class="font-bold text-accentGold uppercase font-mono text-xs border-b border-navyLight pb-1">3. Persamaan Akhir & Proyeksi</h4>
+                                    <div class="space-y-2">
+                                        <div class="text-[11px] text-slate-300">Persamaan Linier:</div>
+                                        <div id="engine-final-eq" class="text-xl font-bold font-mono text-white">Y = 0 + 0(X)</div>
+                                        <div class="text-[11px] text-slate-300 pt-1">Hasil Proyeksi Periode X = 5:</div>
+                                        <div id="engine-final-pred" class="text-2xl font-black font-mono text-accentGold">0 Unit</div>
                                     </div>
-                                    <div>
-                                        <label class="block font-bold text-slate-700 uppercase mb-1">Sisa Stok Fisik Saat Ini</label>
-                                        <input type="number" id="currentStock" value="45" class="w-full px-3 py-2 border border-borderAccent rounded-md bg-white font-mono" required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!-- =================================================================== -->
+                    <!-- SUB-SECTION 7: KRITERIA & BOBOT PARAMETER                          -->
+                    <!-- =================================================================== -->
+                    <div id="sec-kriteria" class="sub-sec space-y-6">
+                        <div class="bg-white p-6 rounded-lg border border-borderAccent shadow-sm space-y-6">
+                            <div class="border-b border-borderAccent pb-4 flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-xl font-bold text-navyDark">Pengaturan Kriteria & Bobot Peramalan</h3>
+                                    <p class="text-xs text-slate-500">Sesuaikan persentase bobot kriteria untuk menyesuaikan pembobotan skor prioritas restock.</p>
+                                </div>
+                                <span id="weight-total-badge" class="px-3.5 py-1.5 rounded-md font-mono font-bold text-xs bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                    TOTAL BOBOT: 100% (VALID)
+                                </span>
+                            </div>
+
+                            <form id="weightsForm" onsubmit="saveWeights(event)" class="space-y-6 max-w-2xl">
+                                
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-bold text-navyDark">
+                                        <span>C1: Tren Penjualan Harian (Slope b)</span>
+                                        <span id="slider-val-slope" class="font-mono text-navyPrimary">35%</span>
                                     </div>
-                                    <button type="submit" class="w-full py-3 bg-navyPrimary hover:bg-navyHover text-white font-bold tracking-wider uppercase rounded-md transition shadow flex items-center justify-center gap-2">
-                                        <i class="fa-solid fa-calculator text-accentGold"></i>
-                                        <span>Hitung Prediksi Regresi</span>
+                                    <input type="range" id="inputWeightSlope" min="0" max="100" value="35" oninput="updateWeightDisplay()" class="w-full accent-navyPrimary cursor-pointer">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-bold text-navyDark">
+                                        <span>C2: Data Historis Penjualan (3 Bulan)</span>
+                                        <span id="slider-val-history" class="font-mono text-navyPrimary">30%</span>
+                                    </div>
+                                    <input type="range" id="inputWeightHistory" min="0" max="100" value="30" oninput="updateWeightDisplay()" class="w-full accent-navyPrimary cursor-pointer">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-bold text-navyDark">
+                                        <span>C3: Fluktuasi Musiman & Event</span>
+                                        <span id="slider-val-season" class="font-mono text-navyPrimary">20%</span>
+                                    </div>
+                                    <input type="range" id="inputWeightSeason" min="0" max="100" value="20" oninput="updateWeightDisplay()" class="w-full accent-navyPrimary cursor-pointer">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-bold text-navyDark">
+                                        <span>C4: Margin Keuntungan Produk</span>
+                                        <span id="slider-val-margin" class="font-mono text-navyPrimary">15%</span>
+                                    </div>
+                                    <input type="range" id="inputWeightMargin" min="0" max="100" value="15" oninput="updateWeightDisplay()" class="w-full accent-navyPrimary cursor-pointer">
+                                </div>
+
+                                <div class="pt-4 flex gap-3">
+                                    <button type="submit" id="btn-save-weights" class="px-6 py-3 bg-navyPrimary hover:bg-navyHover text-white font-bold text-xs uppercase tracking-wider rounded-md shadow transition">
+                                        Simpan & Terapkan Bobot
                                     </button>
-                                </form>
-                            </div>
-
-                            <!-- Calculation Result & Dynamic Chart -->
-                            <div class="lg:col-span-7 space-y-4">
-                                <div class="bg-navyPrimary text-white p-5 rounded-lg border border-navyDark space-y-3 shadow">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <span class="text-[10px] text-accentGold uppercase tracking-widest block font-mono font-bold">Hasil Peramalan Regresi</span>
-                                            <h4 id="resProductName" class="text-lg font-bold text-white tracking-tight">Kopi Susu Gula Aren 250ml</h4>
-                                        </div>
-                                        <span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase bg-emerald-500 text-navyDark font-mono">
-                                            Restock Disarankan
-                                        </span>
-                                    </div>
-
-                                    <div class="grid grid-cols-3 gap-3 pt-2 text-center">
-                                        <div class="bg-navyDark p-3 rounded-md border border-navyLight">
-                                            <span class="text-[10px] text-slate-300 block uppercase font-mono">Prediksi Bln 5</span>
-                                            <span id="predictedSalesVal" class="text-xl font-black text-accentGold font-mono">212 Unit</span>
-                                        </div>
-                                        <div class="bg-navyDark p-3 rounded-md border border-navyLight">
-                                            <span class="text-[10px] text-slate-300 block uppercase font-mono">Stok Gudang</span>
-                                            <span id="currentStockVal" class="text-xl font-black text-white font-mono">45 Unit</span>
-                                        </div>
-                                        <div class="bg-navyDark p-3 rounded-md border border-navyLight">
-                                            <span class="text-[10px] text-slate-300 block uppercase font-mono">Order Restock</span>
-                                            <span id="recommendedRestockVal" class="text-xl font-black text-emerald-400 font-mono">167 Unit</span>
-                                        </div>
-                                    </div>
+                                    <button type="button" onclick="resetDefaultWeights()" class="px-6 py-3 bg-creamCard hover:bg-borderAccent text-navyDark font-bold text-xs uppercase tracking-wider rounded-md transition">
+                                        Reset Ke Default
+                                    </button>
                                 </div>
 
-                                <div class="bg-creamBg p-4 rounded-lg border border-borderAccent">
-                                    <div class="h-48 w-full">
-                                        <canvas id="regressionChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
 
@@ -649,8 +918,82 @@
     </main>
 
     <!-- =================================================================== -->
-    <!-- MODAL: INFORMATION PDF SUMMARY (Irzi Atarr Denanta - 29411007)      -->
+    <!-- MODALS: ADD TRANSACTION, ADD PRODUCT, INFORMATION PDF               -->
     <!-- =================================================================== -->
+    
+    <!-- Modal Add Transaction -->
+    <div id="modal-transaction" class="fixed inset-0 z-50 hidden bg-navyDark/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white max-w-md w-full rounded-lg shadow-2xl border border-borderAccent overflow-hidden">
+            <div class="bg-navyPrimary text-white p-4 flex justify-between items-center">
+                <h3 class="font-bold text-sm uppercase tracking-wider font-mono">Input Transaksi Penjualan Baru</h3>
+                <button onclick="closeModalTransaction()" class="text-slate-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveNewTransaction(event)" class="p-5 space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-navyDark mb-1">Tanggal Transaksi</label>
+                    <input type="date" id="txDateInput" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg font-mono">
+                </div>
+                <div>
+                    <label class="block font-bold text-navyDark mb-1">Pilih Produk</label>
+                    <select id="txProductSelect" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg font-bold text-navyDark">
+                        <!-- Dynamic JS -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-bold text-navyDark mb-1">Jumlah Terjual (Unit)</label>
+                    <input type="number" id="txQtyInput" min="1" value="10" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg font-mono">
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModalTransaction()" class="px-4 py-2 bg-creamCard text-navyDark font-bold rounded">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-navyPrimary text-white font-bold rounded">Simpan Transaksi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Add Product -->
+    <div id="modal-product" class="fixed inset-0 z-50 hidden bg-navyDark/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white max-w-md w-full rounded-lg shadow-2xl border border-borderAccent overflow-hidden">
+            <div class="bg-navyPrimary text-white p-4 flex justify-between items-center">
+                <h3 class="font-bold text-sm uppercase tracking-wider font-mono">Tambah Produk UMKM Baru</h3>
+                <button onclick="closeModalProduct()" class="text-slate-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveNewProduct(event)" class="p-5 space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-navyDark mb-1">Kode SKU Produk</label>
+                    <input type="text" id="prodSkuInput" placeholder="UMKM-006" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg font-mono">
+                </div>
+                <div>
+                    <label class="block font-bold text-navyDark mb-1">Nama Produk UMKM</label>
+                    <input type="text" id="prodNameInput" placeholder="Keripik Tempe Renyah" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg">
+                </div>
+                <div>
+                    <label class="block font-bold text-navyDark mb-1">Kategori</label>
+                    <input type="text" id="prodCatInput" placeholder="Makanan Ringan" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-navyDark mb-1">HPP / Modal (Rp)</label>
+                        <input type="number" id="prodCostInput" value="10000" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg font-mono">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-navyDark mb-1">Harga Jual (Rp)</label>
+                        <input type="number" id="prodPriceInput" value="15000" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg font-mono">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-navyDark mb-1">Stok Gudang Awal</label>
+                    <input type="number" id="prodStockInput" value="50" required class="w-full px-3 py-2 border border-borderAccent rounded bg-creamBg font-mono">
+                </div>
+                <div class="pt-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeModalProduct()" class="px-4 py-2 bg-creamCard text-navyDark font-bold rounded">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-navyPrimary text-white font-bold rounded">Simpan Produk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal PDF Info -->
     <div id="modal-pdf-info" class="fixed inset-0 z-50 hidden bg-navyDark/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white max-w-2xl w-full rounded-lg shadow-2xl border border-borderAccent overflow-hidden my-8">
             <div class="bg-navyPrimary text-white p-6 flex justify-between items-center border-b border-navyDark">
@@ -669,8 +1012,6 @@
             </div>
 
             <div class="p-6 space-y-6 text-xs text-navyDark max-h-[70vh] overflow-y-auto">
-                
-                <!-- Section 1: 5 Whys Analysis -->
                 <div class="space-y-3">
                     <h4 class="font-bold text-base border-b border-borderAccent pb-1 text-navyDark">
                         1. Analisis 5 Whys (Akar Masalah UMKM)
@@ -686,7 +1027,6 @@
                     </div>
                 </div>
 
-                <!-- Section 2: Algoritma Regression -->
                 <div class="space-y-3">
                     <h4 class="font-bold text-base border-b border-borderAccent pb-1 text-navyDark">
                         2. Metode Algoritma Regression
@@ -701,7 +1041,6 @@
                     </div>
                 </div>
 
-                <!-- Section 3: Dampak Implementasi -->
                 <div class="space-y-3">
                     <h4 class="font-bold text-base border-b border-borderAccent pb-1 text-navyDark">
                         3. Dampak Implementasi Bagi UMKM
@@ -718,14 +1057,12 @@
                     </div>
                 </div>
 
-                <!-- Author Details -->
                 <div class="p-4 bg-navyDark text-white rounded-md text-xs space-y-1">
                     <div class="font-bold text-accentGold font-mono">DOKUMENTASI MAHASISWA:</div>
                     <div>Nama: <strong>Irzi Atarr Denanta</strong></div>
                     <div>NPM: <strong>29411007</strong></div>
-                    <div>Mata Kuliah: Tugas Individu AKS — Oktober 2026</div>
+                    <div>Mata Kuliah: Tugas Individu AKS — OKTOBER 2026</div>
                 </div>
-
             </div>
 
             <div class="p-4 bg-creamBg border-t border-borderAccent text-right">
@@ -738,14 +1075,35 @@
 
 
     <!-- =================================================================== -->
-    <!-- JAVASCRIPT APP LOGIC & STATE NAVIGATION                             -->
+    <!-- JAVASCRIPT STATE ENGINE & INTERACTIVE CONTROLLERS                   -->
     <!-- =================================================================== -->
     <script>
-        // App State
+        // GLOBAL STATE STORE
         let currentUser = null;
         let regressionChartInstance = null;
 
-        // Toast Alert Notification System
+        // Dynamic Product Master Dataset
+        let productsData = [
+            { sku: 'UMKM-001', name: 'Keripik Pisang Lampung 250g', category: 'Makanan Ringan', cost: 12000, price: 20000, stock: 45, minStock: 30, salesHistory: [120, 145, 160, 190] },
+            { sku: 'UMKM-004', name: 'Kopi Susu Gula Aren 250ml', category: 'Minuman', cost: 10000, price: 18000, stock: 30, minStock: 25, salesHistory: [95, 110, 130, 155] },
+            { sku: 'UMKM-003', name: 'Roti Bakar Bandung Spesial', category: 'Kuliner', cost: 15000, price: 25000, stock: 20, minStock: 20, salesHistory: [80, 95, 115, 140] },
+            { sku: 'UMKM-002', name: 'Kaos Sablon Distro Cotton', category: 'Pakaian', cost: 45000, price: 85000, stock: 65, minStock: 15, salesHistory: [40, 52, 48, 60] },
+            { sku: 'UMKM-005', name: 'Sambal Cumi Pedas Kemasan', category: 'Makanan Ringan', cost: 18000, price: 30000, stock: 12, minStock: 25, salesHistory: [50, 65, 70, 85] }
+        ];
+
+        // Dynamic Transaction History Log
+        let transactionsData = [
+            { id: 'TX-9021', date: '2026-10-25', sku: 'UMKM-001', name: 'Keripik Pisang Lampung 250g', qty: 15, price: 20000, total: 300000 },
+            { id: 'TX-9020', date: '2026-10-24', sku: 'UMKM-004', name: 'Kopi Susu Gula Aren 250ml', qty: 20, price: 18000, total: 360000 },
+            { id: 'TX-9019', date: '2026-10-24', sku: 'UMKM-003', name: 'Roti Bakar Bandung Spesial', qty: 8, price: 25000, total: 200000 },
+            { id: 'TX-9018', date: '2026-10-23', sku: 'UMKM-001', name: 'Keripik Pisang Lampung 250g', qty: 30, price: 20000, total: 600000 },
+            { id: 'TX-9017', date: '2026-10-22', sku: 'UMKM-005', name: 'Sambal Cumi Pedas Kemasan', qty: 10, price: 30000, total: 300000 }
+        ];
+
+        // Global Weights Config
+        let currentWeights = { slope: 35, history: 30, season: 20, margin: 15 };
+
+        // TOAST ALERT SYSTEM
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -758,176 +1116,208 @@
 
             container.appendChild(toast);
 
-            // Animate in
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 50);
-
-            // Animate out & remove
+            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 50);
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-2');
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
         }
 
-        // View Switcher Function (Login vs Dashboard)
+        // VIEW SWITCHER: LOGIN vs DASHBOARD
         function switchView(viewName) {
-            document.querySelectorAll('.app-view').forEach(view => {
-                view.classList.remove('active');
-            });
-
-            const targetView = document.getElementById(`view-${viewName}`);
-            if (targetView) {
-                targetView.classList.add('active');
-            }
-
+            document.querySelectorAll('.app-view').forEach(view => view.classList.remove('active'));
+            const target = document.getElementById(`view-${viewName}`);
+            if (target) target.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             if (viewName === 'dashboard') {
-                setTimeout(() => {
-                    initRegressionChart();
-                }, 100);
+                navigateToSection('sec-dashboard');
             }
         }
 
-        // Tab Switcher inside Login View (MASUK / DAFTAR AKUN)
+        // SECTION NAVIGATION INSIDE DASHBOARD
+        function navigateToSection(secId) {
+            // Update Active Nav Highlight
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active-nav'));
+            const activeBtn = document.querySelector(`[onclick="navigateToSection('${secId}')"]`);
+            if (activeBtn) activeBtn.classList.add('active-nav');
+
+            // Hide/Show Sections
+            document.querySelectorAll('.sub-sec').forEach(sec => sec.classList.remove('active-sec'));
+            const targetSec = document.getElementById(secId);
+            if (targetSec) targetSec.classList.add('active-sec');
+
+            // Update Breadcrumb & Header Title
+            const titles = {
+                'sec-dashboard': { title: 'Dashboard.', sub: 'Ringkasan proses forecasting data historis dan rekomendasi restock barang UMKM.', crumb: 'Sistem Prediksi Penjualan / Dashboard' },
+                'sec-riwayat': { title: 'Riwayat Penjualan.', sub: 'Manajemen riwayat transaksi penjualan terperinci untuk analisis tren.', crumb: 'Sistem Prediksi Penjualan / Riwayat Penjualan' },
+                'sec-stok': { title: 'Input Data Stok.', sub: 'Pemantauan sisa stok gudang dan penentuan batas minimum safety stock.', crumb: 'Sistem Prediksi Penjualan / Input Data Stok' },
+                'sec-status': { title: 'Status & Hasil Forecasting.', sub: 'Rangkuman lengkap persamaan linier regresi dan status verifikasi stok.', crumb: 'Sistem Prediksi Penjualan / Status & Hasil' },
+                'sec-produk': { title: 'Data Produk UMKM.', sub: 'Kelola master data produk, HPP, harga jual, dan estimasi keuntungan.', crumb: 'Pengelolaan Admin / Data Produk UMKM' },
+                'sec-peramalan': { title: 'Peramalan Regression Engine.', sub: 'Pemeriksaan kalkulasi matematika regresi linier Y = a + bX secara rasional.', crumb: 'Pengelolaan Admin / Peramalan Regression' },
+                'sec-kriteria': { title: 'Kriteria & Bobot Parameter.', sub: 'Pengaturan komposisi bobot variabel peramalan kebutuhan stok barang.', crumb: 'Pengelolaan Admin / Kriteria & Bobot' }
+            };
+
+            if (titles[secId]) {
+                document.getElementById('section-title').innerText = titles[secId].title;
+                document.getElementById('section-subtitle').innerText = titles[secId].sub;
+                document.getElementById('section-breadcrumb').innerText = titles[secId].crumb;
+            }
+
+            // Render Section-specific logic
+            if (secId === 'sec-dashboard') renderDashboardOverview();
+            if (secId === 'sec-riwayat') renderTransactionsTable();
+            if (secId === 'sec-stok') renderStockTable();
+            if (secId === 'sec-status') renderStatusTable();
+            if (secId === 'sec-produk') renderProductCrudTable();
+            if (secId === 'sec-peramalan') renderEngineCalculation();
+            if (secId === 'sec-kriteria') initWeightsForm();
+        }
+
+        // LOGIN HELPERS
         function switchLoginTab(tab) {
             const btnMasuk = document.getElementById('tab-masuk');
             const btnDaftar = document.getElementById('tab-daftar');
-
             if (tab === 'masuk') {
                 btnMasuk.classList.add('active-tab');
                 btnDaftar.classList.remove('active-tab');
-                btnDaftar.classList.add('text-slate-400');
             } else {
                 btnDaftar.classList.add('active-tab');
                 btnMasuk.classList.remove('active-tab');
-                btnMasuk.classList.add('text-slate-400');
                 showToast('Fitur pendaftaran akun baru terbuka!', 'info');
             }
         }
 
-        // Auto-fill Credential & Trigger Direct Login
         function fillAndLogin(role) {
-            const emailInput = document.getElementById('loginEmail');
-            const passInput = document.getElementById('loginPassword');
-
-            if (role === 'admin') {
-                emailInput.value = 'admin@prediksi.demo';
-                passInput.value = 'admin123';
-            } else {
-                emailInput.value = 'umkm@prediksi.demo';
-                passInput.value = 'umkm123';
-            }
-
-            // Trigger submit form
+            document.getElementById('loginEmail').value = role === 'admin' ? 'admin@prediksi.demo' : 'umkm@prediksi.demo';
+            document.getElementById('loginPassword').value = role === 'admin' ? 'admin123' : 'umkm123';
             document.getElementById('loginForm').dispatchEvent(new Event('submit', { cancelable: true }));
         }
 
-        // Form Submit Handler for Login
         function handleLoginSubmit(e) {
             e.preventDefault();
-
             const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPassword').value;
-
-            if (!email || !pass) {
-                showToast('Harap isi email dan kata sandi!', 'info');
-                return;
-            }
-
             const isAdmin = email.includes('admin');
+            
             currentUser = {
-                email: email,
                 name: isAdmin ? 'Irzi Atarr Denanta (Admin)' : 'Pemilik UMKM Demo',
                 role: isAdmin ? 'ADMINISTRATOR' : 'PEMILIK UMKM'
             };
 
-            // Update User Profile text in Dashboard
             document.getElementById('dash-user-name').innerText = currentUser.name;
             document.getElementById('dash-user-role').innerText = currentUser.role;
             document.getElementById('header-role-badge').innerText = currentUser.role;
 
             showToast(`Login berhasil! Selamat datang, ${currentUser.name}`, 'success');
-
-            // Switch view to Dashboard
             switchView('dashboard');
         }
 
-        // Logout Handler
         function handleLogout() {
             currentUser = null;
             showToast('Anda telah keluar dari akun.', 'info');
             switchView('login');
         }
 
-        // Scroll to Calculator
-        function scrollToCalculator() {
-            const el = document.getElementById('section-calculator');
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
+        // REGRESSION MATHEMATICAL CALCULATOR LOGIC
+        function computeLinearRegression(salesArr) {
+            const n = salesArr.length;
+            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+            for (let i = 0; i < n; i++) {
+                const x = i + 1;
+                const y = salesArr[i];
+                sumX += x;
+                sumY += y;
+                sumXY += (x * y);
+                sumX2 += (x * x);
             }
+            const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+            const a = (sumY - b * sumX) / n;
+            const predictedMonth5 = Math.round(a + b * (n + 1));
+            return { a, b, predictedMonth5, sumX, sumY, sumXY, sumX2, n };
         }
 
-        // Modal PDF Controllers
-        function openModalPdf() {
-            document.getElementById('modal-pdf-info').classList.remove('hidden');
+        // 1. DASHBOARD OVERVIEW RENDERER
+        function renderDashboardOverview() {
+            // Update Select dropdown in Calc
+            const select = document.getElementById('productSelectCalc');
+            select.innerHTML = productsData.map((p, idx) => `<option value="${idx}">${p.name} (${p.sku})</option>`).join('');
+
+            // Render Candidates Table
+            const topBody = document.getElementById('dash-top-candidates-body');
+            topBody.innerHTML = '';
+
+            // Calculate SAW scores
+            const scoredProducts = productsData.map(p => {
+                const reg = computeLinearRegression(p.salesHistory);
+                const score = (reg.b * (currentWeights.slope / 100)) + (reg.predictedMonth5 * (currentWeights.history / 100 * 0.005));
+                const finalScore = Math.min(0.999, Math.max(0.650, (score / 10).toFixed(3)));
+                return { ...p, reg, score: parseFloat(finalScore) };
+            }).sort((a, b) => b.score - a.score);
+
+            scoredProducts.forEach(p => {
+                const isRec = p.score >= 0.800;
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-creamBg transition-colors';
+                row.innerHTML = `
+                    <td class="py-3 px-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-7 h-7 rounded-full bg-creamCard text-navyPrimary font-bold flex items-center justify-center text-[10px] font-mono">${p.sku.slice(-2)}</span>
+                            <div>
+                                <div class="font-bold text-navyDark">${p.name}</div>
+                                <div class="text-[10px] text-slate-500 font-mono">SKU: ${p.sku}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-2 text-center font-bold text-navyDark font-mono">${p.score.toFixed(3)}</td>
+                    <td class="py-3 px-2 text-right">
+                        <span class="px-2.5 py-1 ${isRec ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'} rounded-full font-bold text-[10px]">
+                            ${isRec ? 'Rekomendasi' : 'Cadangan'}
+                        </span>
+                    </td>
+                `;
+                topBody.appendChild(row);
+            });
+
+            // Initial auto calculation
+            autoFillCalcForm();
         }
 
-        function closeModalPdf() {
-            document.getElementById('modal-pdf-info').classList.add('hidden');
+        function autoFillCalcForm() {
+            const idx = document.getElementById('productSelectCalc').value || 0;
+            const p = productsData[idx];
+            document.getElementById('m1').value = p.salesHistory[0];
+            document.getElementById('m2').value = p.salesHistory[1];
+            document.getElementById('m3').value = p.salesHistory[2];
+            document.getElementById('m4').value = p.salesHistory[3];
+            document.getElementById('currentStock').value = p.stock;
+            calculateRegression(null);
         }
 
-        // Linear Regression Calculation Logic: Y = a + bX
         function calculateRegression(e) {
             if (e) e.preventDefault();
-
-            const pName = document.getElementById('productName').value;
+            const idx = document.getElementById('productSelectCalc').value || 0;
+            const p = productsData[idx];
             const m1 = parseFloat(document.getElementById('m1').value) || 0;
             const m2 = parseFloat(document.getElementById('m2').value) || 0;
             const m3 = parseFloat(document.getElementById('m3').value) || 0;
             const m4 = parseFloat(document.getElementById('m4').value) || 0;
             const currStock = parseFloat(document.getElementById('currentStock').value) || 0;
 
-            const xArr = [1, 2, 3, 4];
-            const yArr = [m1, m2, m3, m4];
-            const n = 4;
+            const reg = computeLinearRegression([m1, m2, m3, m4]);
+            const restockOrder = Math.max(0, reg.predictedMonth5 - currStock);
 
-            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
-            for (let i = 0; i < n; i++) {
-                sumX += xArr[i];
-                sumY += yArr[i];
-                sumXY += xArr[i] * yArr[i];
-                sumX2 += xArr[i] * xArr[i];
-            }
-
-            const b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-            const a = (sumY - b * sumX) / n;
-            const predictedMonth5 = Math.round(a + b * 5);
-            const recommendedRestock = Math.max(0, predictedMonth5 - currStock);
-
-            // Update Result DOM
-            document.getElementById('resProductName').innerText = pName;
-            document.getElementById('predictedSalesVal').innerText = `${predictedMonth5} Unit`;
+            document.getElementById('resProductName').innerText = p.name;
+            document.getElementById('predictedSalesVal').innerText = `${reg.predictedMonth5} Unit`;
             document.getElementById('currentStockVal').innerText = `${currStock} Unit`;
-            document.getElementById('recommendedRestockVal').innerText = `${recommendedRestock} Unit`;
+            document.getElementById('recommendedRestockVal').innerText = `${restockOrder} Unit`;
 
-            // Re-render Chart
-            updateRegressionChart(yArr, predictedMonth5);
+            renderRegressionChart([m1, m2, m3, m4], reg.predictedMonth5);
         }
 
-        // Chart.js Chart Initialization & Updates
-        function initRegressionChart() {
-            calculateRegression(null);
-        }
-
-        function updateRegressionChart(yData, predictedVal) {
+        function renderRegressionChart(yData, predictedVal) {
             const ctx = document.getElementById('regressionChart');
             if (!ctx) return;
-
-            if (regressionChartInstance) {
-                regressionChartInstance.destroy();
-            }
+            if (regressionChartInstance) regressionChartInstance.destroy();
 
             regressionChartInstance = new Chart(ctx.getContext('2d'), {
                 type: 'line',
@@ -957,9 +1347,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: true, position: 'bottom', labels: { font: { size: 10, family: 'Plus Jakarta Sans' } } }
-                    },
+                    plugins: { legend: { display: true, position: 'bottom', labels: { font: { size: 10, family: 'Plus Jakarta Sans' } } } },
                     scales: {
                         y: { grid: { color: '#E2DACD' }, ticks: { font: { size: 10, family: 'Plus Jakarta Sans' } } },
                         x: { grid: { display: false }, ticks: { font: { size: 10, family: 'Plus Jakarta Sans' } } }
@@ -968,9 +1356,367 @@
             });
         }
 
-        // App Initialization
+        // 2. RIWAYAT PENJUALAN RENDERER & ACTIONS
+        function renderTransactionsTable() {
+            const tbody = document.getElementById('tx-table-body');
+            const search = document.getElementById('searchTxInput').value.toLowerCase();
+            const filter = document.getElementById('filterTxProduct').value;
+
+            // Populate Filter Select Options
+            const selectFilter = document.getElementById('filterTxProduct');
+            if (selectFilter.children.length === 1) {
+                productsData.forEach(p => {
+                    selectFilter.innerHTML += `<option value="${p.sku}">${p.name}</option>`;
+                });
+            }
+
+            tbody.innerHTML = '';
+            const filtered = transactionsData.filter(tx => {
+                const matchSearch = tx.name.toLowerCase().includes(search) || tx.sku.toLowerCase().includes(search) || tx.id.toLowerCase().includes(search);
+                const matchFilter = filter === 'ALL' || tx.sku === filter;
+                return matchSearch && matchFilter;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400">Tidak ada transaksi ditemukan.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(tx => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-creamBg transition-colors';
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-mono font-bold text-navyPrimary">${tx.id}</td>
+                    <td class="py-3 px-3 font-mono">${tx.date}</td>
+                    <td class="py-3 px-3">
+                        <div class="font-bold text-navyDark">${tx.name}</div>
+                        <div class="text-[10px] text-slate-500 font-mono">SKU: ${tx.sku}</div>
+                    </td>
+                    <td class="py-3 px-3 text-center font-bold font-mono">${tx.qty} Unit</td>
+                    <td class="py-3 px-3 text-right font-mono">Rp ${tx.price.toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-3 text-right font-mono font-bold text-emerald-700">Rp ${tx.total.toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-3 text-center">
+                        <button onclick="deleteTransaction('${tx.id}')" class="text-red-600 hover:text-red-800 p-1"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resetTxFilter() {
+            document.getElementById('searchTxInput').value = '';
+            document.getElementById('filterTxProduct').value = 'ALL';
+            renderTransactionsTable();
+        }
+
+        function openModalTransaction() {
+            const select = document.getElementById('txProductSelect');
+            select.innerHTML = productsData.map(p => `<option value="${p.sku}">${p.name} (Stok: ${p.stock})</option>`).join('');
+            document.getElementById('txDateInput').value = new Date().toISOString().split('T')[0];
+            document.getElementById('modal-transaction').classList.remove('hidden');
+        }
+
+        function closeModalTransaction() {
+            document.getElementById('modal-transaction').classList.add('hidden');
+        }
+
+        function saveNewTransaction(e) {
+            e.preventDefault();
+            const sku = document.getElementById('txProductSelect').value;
+            const p = productsData.find(x => x.sku === sku);
+            const qty = parseInt(document.getElementById('txQtyInput').value) || 1;
+            const date = document.getElementById('txDateInput').value;
+
+            const newTx = {
+                id: `TX-${Math.floor(1000 + Math.random() * 9000)}`,
+                date: date,
+                sku: p.sku,
+                name: p.name,
+                qty: qty,
+                price: p.price,
+                total: qty * p.price
+            };
+
+            transactionsData.unshift(newTx);
+            p.stock = Math.max(0, p.stock - qty);
+            closeModalTransaction();
+            showToast('Transaksi berhasil ditambahkan & stok diperbarui!', 'success');
+            renderTransactionsTable();
+        }
+
+        function deleteTransaction(id) {
+            transactionsData = transactionsData.filter(t => t.id !== id);
+            showToast('Transaksi dihapus.', 'info');
+            renderTransactionsTable();
+        }
+
+        // 3. INPUT DATA STOK RENDERER
+        function renderStockTable() {
+            const tbody = document.getElementById('stock-table-body');
+            tbody.innerHTML = '';
+            let hasWarning = false;
+
+            productsData.forEach(p => {
+                const isCritical = p.stock <= p.minStock;
+                if (isCritical) hasWarning = true;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-creamBg transition-colors';
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-mono font-bold text-navyPrimary">${p.sku}</td>
+                    <td class="py-3 px-3 font-bold text-navyDark">${p.name}</td>
+                    <td class="py-3 px-3 text-center font-mono font-bold text-base">${p.stock} Unit</td>
+                    <td class="py-3 px-3 text-center font-mono text-slate-600">${p.minStock} Unit</td>
+                    <td class="py-3 px-3 text-center">
+                        <span class="px-2.5 py-1 ${isCritical ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-emerald-100 text-emerald-800'} rounded-full font-bold text-[10px]">
+                            ${isCritical ? 'CRITICAL / RESTOCK' : 'STOK AMAN'}
+                        </span>
+                    </td>
+                    <td class="py-3 px-3 text-center">
+                        <div class="flex items-center justify-center space-x-2">
+                            <input type="number" id="inputAddStock_${p.sku}" value="10" min="1" class="w-16 px-2 py-1 border border-borderAccent rounded text-center font-mono text-xs">
+                            <button onclick="addStock('${p.sku}')" class="px-3 py-1 bg-navyPrimary hover:bg-navyHover text-white rounded text-xs font-bold font-mono">+ Tambah</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const warningBanner = document.getElementById('stock-warning-banner');
+            if (hasWarning) {
+                warningBanner.classList.remove('hidden');
+            } else {
+                warningBanner.classList.add('hidden');
+            }
+        }
+
+        function addStock(sku) {
+            const p = productsData.find(x => x.sku === sku);
+            const val = parseInt(document.getElementById(`inputAddStock_${sku}`).value) || 0;
+            p.stock += val;
+            showToast(`Stok ${p.name} bertambah ${val} unit!`, 'success');
+            renderStockTable();
+        }
+
+        // 4. STATUS & HASIL FORECASTING RENDERER
+        function renderStatusTable() {
+            const tbody = document.getElementById('status-table-body');
+            tbody.innerHTML = '';
+
+            let totalBudget = 0;
+            productsData.forEach(p => {
+                const reg = computeLinearRegression(p.salesHistory);
+                const orderQty = Math.max(0, reg.predictedMonth5 - p.stock);
+                const orderCost = orderQty * p.cost;
+                totalBudget += orderCost;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-creamBg transition-colors';
+                tr.innerHTML = `
+                    <td class="py-3 px-3">
+                        <div class="font-bold text-navyDark">${p.name}</div>
+                        <div class="text-[10px] text-slate-500 font-mono">SKU: ${p.sku}</div>
+                    </td>
+                    <td class="py-3 px-3 text-center font-mono text-navyPrimary font-bold">Y = ${reg.a.toFixed(1)} + ${reg.b.toFixed(1)}X</td>
+                    <td class="py-3 px-3 text-center font-mono font-bold ${reg.b >= 0 ? 'text-emerald-700' : 'text-red-600'}">+${reg.b.toFixed(2)}</td>
+                    <td class="py-3 px-3 text-center font-mono font-bold text-amber-600">${reg.predictedMonth5} Unit</td>
+                    <td class="py-3 px-3 text-center font-mono">${p.stock} Unit</td>
+                    <td class="py-3 px-3 text-center font-mono font-bold text-emerald-800 bg-emerald-50">${orderQty} Unit</td>
+                    <td class="py-3 px-3 text-right">
+                        <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-[10px]">VERIFIED</span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('stat-budget-est').innerText = `Rp ${totalBudget.toLocaleString('id-ID')}`;
+            document.getElementById('stat-model-count').innerText = `${productsData.length} Produk`;
+        }
+
+        // 5. DATA PRODUK UMKM (CRUD) RENDERER & ACTIONS
+        function renderProductCrudTable() {
+            const tbody = document.getElementById('product-crud-body');
+            tbody.innerHTML = '';
+
+            productsData.forEach((p, idx) => {
+                const profit = p.price - p.cost;
+                const margin = ((profit / p.price) * 100).toFixed(1);
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-creamBg transition-colors';
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-mono font-bold text-navyPrimary">${p.sku}</td>
+                    <td class="py-3 px-3 font-bold text-navyDark">${p.name}</td>
+                    <td class="py-3 px-3 text-slate-600">${p.category}</td>
+                    <td class="py-3 px-3 text-right font-mono">Rp ${p.cost.toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-3 text-right font-mono font-bold text-navyDark">Rp ${p.price.toLocaleString('id-ID')}</td>
+                    <td class="py-3 px-3 text-center font-mono font-bold text-emerald-700">${margin}%</td>
+                    <td class="py-3 px-3 text-center">
+                        <button onclick="deleteProduct(${idx})" class="text-red-600 hover:text-red-800 p-1"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openModalProduct() {
+            document.getElementById('modal-product').classList.remove('hidden');
+        }
+
+        function closeModalProduct() {
+            document.getElementById('modal-product').classList.add('hidden');
+        }
+
+        function saveNewProduct(e) {
+            e.preventDefault();
+            const sku = document.getElementById('prodSkuInput').value;
+            const name = document.getElementById('prodNameInput').value;
+            const category = document.getElementById('prodCatInput').value;
+            const cost = parseInt(document.getElementById('prodCostInput').value) || 0;
+            const price = parseInt(document.getElementById('prodPriceInput').value) || 0;
+            const stock = parseInt(document.getElementById('prodStockInput').value) || 0;
+
+            productsData.push({
+                sku, name, category, cost, price, stock, minStock: 20, salesHistory: [50, 60, 75, 90]
+            });
+
+            closeModalProduct();
+            showToast('Produk UMKM berhasil ditambahkan!', 'success');
+            renderProductCrudTable();
+        }
+
+        function deleteProduct(idx) {
+            const p = productsData[idx];
+            productsData.splice(idx, 1);
+            showToast(`Produk ${p.name} telah dihapus.`, 'info');
+            renderProductCrudTable();
+        }
+
+        // 6. PERAMALAN REGRESSION ENGINE STEP-BY-STEP
+        function renderEngineCalculation() {
+            const select = document.getElementById('selectEngineProduct');
+            if (select.children.length === 0) {
+                select.innerHTML = productsData.map((p, idx) => `<option value="${idx}">${p.name} (${p.sku})</option>`).join('');
+            }
+
+            const idx = select.value || 0;
+            const p = productsData[idx];
+            const reg = computeLinearRegression(p.salesHistory);
+
+            const matrixBody = document.getElementById('engine-matrix-body');
+            const matrixFoot = document.getElementById('engine-matrix-foot');
+
+            matrixBody.innerHTML = '';
+            for (let i = 0; i < p.salesHistory.length; i++) {
+                const x = i + 1;
+                const y = p.salesHistory[i];
+                const xy = x * y;
+                const x2 = x * x;
+
+                matrixBody.innerHTML += `
+                    <tr>
+                        <td class="py-2.5">${x}</td>
+                        <td class="py-2.5">${y}</td>
+                        <td class="py-2.5">${xy}</td>
+                        <td class="py-2.5">${x2}</td>
+                    </tr>
+                `;
+            }
+
+            matrixFoot.innerHTML = `
+                <tr>
+                    <td class="py-2.5">ΣX = ${reg.sumX}</td>
+                    <td class="py-2.5">ΣY = ${reg.sumY}</td>
+                    <td class="py-2.5">ΣXY = ${reg.sumXY}</td>
+                    <td class="py-2.5">ΣX² = ${reg.sumX2}</td>
+                </tr>
+            `;
+
+            document.getElementById('engine-step-details').innerHTML = `
+                <div>• n (Banyak Periode) = ${reg.n}</div>
+                <div>• Slope (b) = (${reg.n}·${reg.sumXY} - ${reg.sumX}·${reg.sumY}) / (${reg.n}·${reg.sumX2} - (${reg.sumX})²) = <strong class="text-navyPrimary font-bold">${reg.b.toFixed(4)}</strong></div>
+                <div>• Intercept (a) = (${reg.sumY} - ${reg.b.toFixed(4)}·${reg.sumX}) / ${reg.n} = <strong class="text-navyPrimary font-bold">${reg.a.toFixed(4)}</strong></div>
+            `;
+
+            document.getElementById('engine-final-eq').innerText = `Y = ${reg.a.toFixed(2)} + ${reg.b.toFixed(2)}(X)`;
+            document.getElementById('engine-final-pred').innerText = `${reg.predictedMonth5} Unit`;
+        }
+
+        // 7. KRITERIA & BOBOT PARAMETER
+        function initWeightsForm() {
+            document.getElementById('inputWeightSlope').value = currentWeights.slope;
+            document.getElementById('inputWeightHistory').value = currentWeights.history;
+            document.getElementById('inputWeightSeason').value = currentWeights.season;
+            document.getElementById('inputWeightMargin').value = currentWeights.margin;
+            updateWeightDisplay();
+        }
+
+        function updateWeightDisplay() {
+            const slope = parseInt(document.getElementById('inputWeightSlope').value) || 0;
+            const history = parseInt(document.getElementById('inputWeightHistory').value) || 0;
+            const season = parseInt(document.getElementById('inputWeightSeason').value) || 0;
+            const margin = parseInt(document.getElementById('inputWeightMargin').value) || 0;
+
+            document.getElementById('slider-val-slope').innerText = `${slope}%`;
+            document.getElementById('slider-val-history').innerText = `${history}%`;
+            document.getElementById('slider-val-season').innerText = `${season}%`;
+            document.getElementById('slider-val-margin').innerText = `${margin}%`;
+
+            const total = slope + history + season + margin;
+            const badge = document.getElementById('weight-total-badge');
+            badge.innerText = `TOTAL BOBOT: ${total}% (${total === 100 ? 'VALID' : 'TIDAK VALID'})`;
+            
+            if (total === 100) {
+                badge.className = 'px-3.5 py-1.5 rounded-md font-mono font-bold text-xs bg-emerald-100 text-emerald-800 border border-emerald-300';
+            } else {
+                badge.className = 'px-3.5 py-1.5 rounded-md font-mono font-bold text-xs bg-red-100 text-red-800 border border-red-300';
+            }
+        }
+
+        function saveWeights(e) {
+            e.preventDefault();
+            const slope = parseInt(document.getElementById('inputWeightSlope').value) || 0;
+            const history = parseInt(document.getElementById('inputWeightHistory').value) || 0;
+            const season = parseInt(document.getElementById('inputWeightSeason').value) || 0;
+            const margin = parseInt(document.getElementById('inputWeightMargin').value) || 0;
+
+            if (slope + history + season + margin !== 100) {
+                showToast('Total bobot kriteria harus persis 100%!', 'info');
+                return;
+            }
+
+            currentWeights = { slope, history, season, margin };
+
+            // Update Dashboard progress bars
+            document.getElementById('weight-lbl-slope').innerText = `${slope}%`;
+            document.getElementById('weight-bar-slope').style.width = `${slope}%`;
+            document.getElementById('weight-lbl-history').innerText = `${history}%`;
+            document.getElementById('weight-bar-history').style.width = `${history}%`;
+            document.getElementById('weight-lbl-season').innerText = `${season}%`;
+            document.getElementById('weight-bar-season').style.width = `${season}%`;
+            document.getElementById('weight-lbl-margin').innerText = `${margin}%`;
+            document.getElementById('weight-bar-margin').style.width = `${margin}%`;
+
+            showToast('Bobot kriteria berhasil diperbarui & diterapkan!', 'success');
+        }
+
+        function resetDefaultWeights() {
+            currentWeights = { slope: 35, history: 30, season: 20, margin: 15 };
+            initWeightsForm();
+            showToast('Bobot direset ke konfigurasi awal.', 'info');
+        }
+
+        // PDF MODAL CONTROLLERS
+        function openModalPdf() {
+            document.getElementById('modal-pdf-info').classList.remove('hidden');
+        }
+
+        function closeModalPdf() {
+            document.getElementById('modal-pdf-info').classList.add('hidden');
+        }
+
+        // APP INIT
         window.onload = function() {
-            // App starts strictly at 'view-login'
             switchView('login');
         };
     </script>
