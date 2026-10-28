@@ -303,15 +303,10 @@
                             <span>Data Produk UMKM</span>
                         </button>
 
-                        <!-- ADMIN ONLY TABS -->
+                        <!-- ADMIN ONLY TAB -->
                         <button onclick="navigateToSection('sec-peramalan')" id="nav-sec-peramalan" class="nav-btn admin-only whitespace-nowrap px-3.5 py-2 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-navyPrimary/60 transition flex items-center gap-2">
                             <i class="fa-solid fa-calculator text-accentGlow"></i>
                             <span>Peramalan Regression Engine</span>
-                        </button>
-
-                        <button onclick="navigateToSection('sec-kriteria')" id="nav-sec-kriteria" class="nav-btn admin-only whitespace-nowrap px-3.5 py-2 rounded-lg font-medium text-slate-300 hover:text-white hover:bg-navyPrimary/60 transition flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-accentGlow"></i>
-                            <span>Kriteria & Bobot SAW</span>
                         </button>
                     </nav>
 
@@ -395,7 +390,7 @@
                         </div>
                     </div>
 
-                    <!-- MAIN GRID: TABLE + WEIGHT COMPOSITION -->
+                    <!-- MAIN GRID: TABLE + PARAMETER COMPOSITION -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         
                         <!-- Left Table -->
@@ -404,7 +399,7 @@
                                 <div>
                                     <span class="text-[10px] font-extrabold uppercase tracking-wider text-accentGold font-mono">RINGKASAN REKOMENDASI</span>
                                     <h2 class="text-xl font-bold text-navyDark">Kandidat Teratas Restock</h2>
-                                    <p class="text-xs text-slate-500">Peringkat produk berdasarkan proyeksi algoritma Regression & SAW</p>
+                                    <p class="text-xs text-slate-500">Peringkat produk berdasarkan proyeksi algoritma Linear Regression</p>
                                 </div>
                                 <button onclick="navigateToSection('sec-status')" class="text-xs font-bold text-accentGold hover:underline uppercase font-mono">LIHAT SEMUA ↗</button>
                             </div>
@@ -414,7 +409,7 @@
                                     <thead>
                                         <tr class="border-b border-borderAccent text-slate-500 uppercase font-extrabold tracking-wider font-mono">
                                             <th class="py-2.5">NAMA PRODUK / SKU</th>
-                                            <th class="py-2.5 text-center">SKOR REGRESI / SAW</th>
+                                            <th class="py-2.5 text-center">SKOR REGRESI (R²)</th>
                                             <th class="py-2.5 text-right">STATUS</th>
                                         </tr>
                                     </thead>
@@ -457,20 +452,28 @@
                             </div>
                         </div>
 
-                        <!-- Right Weight Composition -->
+                        <!-- Right Parameter Composition -->
                         <div class="bg-white p-6 rounded-2xl border border-borderAccent shadow-sm flex flex-col justify-between">
                             <div>
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-accentGold font-mono">KOMPOSISI BOBOT</span>
-                                    <button onclick="navigateToSection('sec-kriteria')" class="admin-only text-[10px] font-bold text-accentGold hover:underline uppercase font-mono">UBAH BOBOT ⚙</button>
+                                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-accentGold font-mono">PARAMETER UTAMA</span>
                                 </div>
-                                <h2 class="text-xl font-bold text-navyDark">Kriteria Penentuan Stok</h2>
-                                <p class="text-xs text-slate-500 mb-6">Bobot parameter peramalan kebutuhan barang</p>
+                                <h2 class="text-xl font-bold text-navyDark">Komposisi Peramalan Stok</h2>
+                                <p class="text-xs text-slate-500 mb-6">Faktor perhitungan regresi linier & safety stock</p>
 
                                 <div class="space-y-4">
                                     <div>
                                         <div class="flex justify-between text-xs font-bold mb-1">
                                             <span>Tren Penjualan Harian (Slope b)</span>
+                                            <span class="font-mono">40%</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-navyDark rounded-full" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs font-bold mb-1">
+                                            <span>Data Historis Penjualan (3 Bulan)</span>
                                             <span class="font-mono">35%</span>
                                         </div>
                                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
@@ -479,29 +482,20 @@
                                     </div>
                                     <div>
                                         <div class="flex justify-between text-xs font-bold mb-1">
-                                            <span>Data Historis Penjualan (3 Bulan)</span>
-                                            <span class="font-mono">30%</span>
-                                        </div>
-                                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                            <div class="h-full bg-navyDark rounded-full" style="width: 30%"></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between text-xs font-bold mb-1">
-                                            <span>Fluktuasi Musiman & Event</span>
-                                            <span class="font-mono">20%</span>
-                                        </div>
-                                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                            <div class="h-full bg-accentGold rounded-full" style="width: 20%"></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between text-xs font-bold mb-1">
-                                            <span>Margin Keuntungan Produk</span>
+                                            <span>Safety Stock Buffer Cadangan</span>
                                             <span class="font-mono">15%</span>
                                         </div>
                                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                                             <div class="h-full bg-accentGold rounded-full" style="width: 15%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs font-bold mb-1">
+                                            <span>Rata-Rata Margin Keuntungan</span>
+                                            <span class="font-mono">10%</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                            <div class="h-full bg-accentGold rounded-full" style="width: 10%"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -513,7 +507,7 @@
                         </div>
                     </div>
 
-                    <!-- LIVE CHART SECTION WITH SMOOTH ANIMATION -->
+                    <!-- LIVE CHART SECTION WITH ACCURATE DIRECT MAPPING -->
                     <div class="bg-white p-6 rounded-2xl border border-borderAccent shadow-sm">
                         <div class="flex items-center justify-between mb-4">
                             <div>
@@ -725,7 +719,7 @@
                                 <h3 class="text-xs font-extrabold uppercase tracking-wider text-navyDark font-mono">PARAMETER INPUT PENJUALAN</h3>
                                 <div>
                                     <label class="block text-[11px] font-bold text-slate-700 mb-1">Periode 1 (X=1) - Terjual</label>
-                                    <input type="number" id="calcX1" value="60" class="w-full p-2.5 bg-white border border-borderAccent rounded-xl text-xs font-mono font-bold">
+                                    <input type="number" id="calcX1" value="10" class="w-full p-2.5 bg-white border border-borderAccent rounded-xl text-xs font-mono font-bold">
                                 </div>
                                 <div>
                                     <label class="block text-[11px] font-bold text-slate-700 mb-1">Periode 2 (X=2) - Terjual</label>
@@ -733,7 +727,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-[11px] font-bold text-slate-700 mb-1">Periode 3 (X=3) - Terjual</label>
-                                    <input type="number" id="calcX3" value="70" class="w-full p-2.5 bg-white border border-borderAccent rounded-xl text-xs font-mono font-bold">
+                                    <input type="number" id="calcX3" value="20" class="w-full p-2.5 bg-white border border-borderAccent rounded-xl text-xs font-mono font-bold">
                                 </div>
                                 <div>
                                     <label class="block text-[11px] font-bold text-slate-700 mb-1">Target Periode Ke- (X Target)</label>
@@ -749,71 +743,22 @@
                                     <div class="font-bold text-navyDark uppercase font-mono text-[11px]">MATRIKS PERHITUNGAN MATEMATIS:</div>
                                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center font-mono py-3 bg-creamCard rounded-xl">
                                         <div><span class="text-slate-500 block text-[10px]">∑X</span> <strong id="resSumX" class="text-navyDark text-sm">6</strong></div>
-                                        <div><span class="text-slate-500 block text-[10px]">∑Y</span> <strong id="resSumY" class="text-navyDark text-sm">188</strong></div>
-                                        <div><span class="text-slate-500 block text-[10px]">∑XY</span> <strong id="resSumXY" class="text-navyDark text-sm">386</strong></div>
+                                        <div><span class="text-slate-500 block text-[10px]">∑Y</span> <strong id="resSumY" class="text-navyDark text-sm">88</strong></div>
+                                        <div><span class="text-slate-500 block text-[10px]">∑XY</span> <strong id="resSumXY" class="text-navyDark text-sm">186</strong></div>
                                         <div><span class="text-slate-500 block text-[10px]">∑X²</span> <strong id="resSumX2" class="text-navyDark text-sm">14</strong></div>
                                     </div>
                                     <div class="pt-2 border-t border-borderAccent/60 flex flex-wrap gap-6 font-mono font-bold text-navyDark">
                                         <div>Slope (b) = <span id="resSlope" class="text-amber-600 text-sm">5.00</span></div>
-                                        <div>Intercept (a) = <span id="resIntercept" class="text-navyPrimary text-sm">52.67</span></div>
+                                        <div>Intercept (a) = <span id="resIntercept" class="text-navyPrimary text-sm">19.33</span></div>
                                     </div>
                                 </div>
 
                                 <div class="p-6 bg-navyDark text-white rounded-2xl text-center shadow-lg border border-navyLight">
                                     <p class="text-[11px] text-accentGlow font-mono uppercase font-bold">HASIL PREDIKSI PENJUALAN (Y)</p>
-                                    <h3 id="finalYResult" class="text-4xl font-extrabold my-1">73 Pcs</h3>
-                                    <p class="text-xs text-slate-300">Estimasi Kebutuhan Restock (+10% Safety Stock): <strong id="finalRestockRec" class="text-white font-mono">80 Pcs</strong></p>
+                                    <h3 id="finalYResult" class="text-4xl font-extrabold my-1">39 Pcs</h3>
+                                    <p class="text-xs text-slate-300">Estimasi Kebutuhan Restock (+10% Safety Stock): <strong id="finalRestockRec" class="text-white font-mono">43 Pcs</strong></p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION 7: KRITERIA & BOBOT (ADMIN ONLY) -->
-                <div id="sec-kriteria" class="hidden space-y-6 admin-only">
-                    <div class="bg-white p-6 rounded-2xl border border-borderAccent shadow-sm">
-                        <div class="mb-6 pb-4 border-b border-borderAccent">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-accentGold font-mono">KONFIGURASI SISTEM (ADMIN)</span>
-                            <h2 class="text-xl font-bold text-navyDark">Pengaturan Kriteria & Bobot SAW</h2>
-                            <p class="text-xs text-slate-500">Sesuaikan persentase bobot keputusan peramalan stok sesuai kondisi usaha UMKM Anda.</p>
-                        </div>
-
-                        <div class="space-y-6 max-w-xl">
-                            <div>
-                                <div class="flex justify-between text-xs font-bold mb-2">
-                                    <span>Tren Penjualan Harian (Slope b)</span>
-                                    <span id="lblWeightSlope" class="font-mono text-accentGold">35%</span>
-                                </div>
-                                <input type="range" min="0" max="100" value="35" oninput="updateWeights()" id="sliderSlope" class="w-full accent-navyDark">
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between text-xs font-bold mb-2">
-                                    <span>Data Historis Penjualan (3 Bulan)</span>
-                                    <span id="lblWeightHist" class="font-mono text-accentGold">30%</span>
-                                </div>
-                                <input type="range" min="0" max="100" value="30" oninput="updateWeights()" id="sliderHist" class="w-full accent-navyDark">
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between text-xs font-bold mb-2">
-                                    <span>Fluktuasi Musiman & Event</span>
-                                    <span id="lblWeightSeas" class="font-mono text-accentGold">20%</span>
-                                </div>
-                                <input type="range" min="0" max="100" value="20" oninput="updateWeights()" id="sliderSeas" class="w-full accent-navyDark">
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between text-xs font-bold mb-2">
-                                    <span>Margin Keuntungan Produk</span>
-                                    <span id="lblWeightMargin" class="font-mono text-accentGold">15%</span>
-                                </div>
-                                <input type="range" min="0" max="100" value="15" oninput="updateWeights()" id="sliderMargin" class="w-full accent-navyDark">
-                            </div>
-
-                            <button onclick="showToast('Bobot kriteria berhasil disimpan oleh Administrator!', 'success')" class="px-6 py-2.5 bg-navyDark text-white font-bold text-xs uppercase rounded-xl hover:bg-navyHover transition">
-                                SIMPAN BOBOT BARU
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -1100,7 +1045,7 @@
                 roleBanner.innerHTML = `
                     <div class="flex items-center gap-2.5">
                         <i class="fa-solid fa-store text-amber-600 text-base"></i>
-                        <span><strong>Mode Akun Pemilik UMKM:</strong> Anda memiliki akses operasional harian (Pencatatan Transaksi, Update Stok Fisik, & Hasil Rekomendasi). Fitur pengaturan rumus & kriteria dikunci.</span>
+                        <span><strong>Mode Akun Pemilik UMKM:</strong> Anda memiliki akses operasional harian (Pencatatan Transaksi, Update Stok Fisik, & Hasil Rekomendasi). Fitur simulasi engine dikunci.</span>
                     </div>
                     <span class="px-2.5 py-1 bg-amber-200 text-amber-900 rounded-lg font-bold font-mono text-[10px]">AKSES OPERASIONAL</span>
                 `;
@@ -1109,7 +1054,7 @@
                 umkmOnlyEls.forEach(el => el.classList.remove('hidden'));
 
                 const activeSec = document.querySelector('main > div:not(.hidden)');
-                if (activeSec && (activeSec.id === 'sec-peramalan' || activeSec.id === 'sec-kriteria')) {
+                if (activeSec && activeSec.id === 'sec-peramalan') {
                     navigateToSection('sec-dashboard');
                 }
 
@@ -1118,7 +1063,7 @@
                 roleBanner.innerHTML = `
                     <div class="flex items-center gap-2.5">
                         <i class="fa-solid fa-user-shield text-navyPrimary text-base"></i>
-                        <span><strong>Mode Akun Administrator:</strong> Anda memiliki Akses Penuh (Full Master CRUD Produk, Modifikasi Bobot SAW, & Simulasi Engine Regresi).</span>
+                        <span><strong>Mode Akun Administrator:</strong> Anda memiliki Akses Penuh (Full Master CRUD Produk & Simulasi Engine Regresi).</span>
                     </div>
                     <span class="px-2.5 py-1 bg-navyDark text-white rounded-lg font-bold font-mono text-[10px]">AKSES HAK PENUH</span>
                 `;
@@ -1152,12 +1097,12 @@
 
         // SPA Navigation inside Dashboard
         function navigateToSection(secId) {
-            if (currentUser.role === 'PEMILIK UMKM' && (secId === 'sec-peramalan' || secId === 'sec-kriteria')) {
+            if (currentUser.role === 'PEMILIK UMKM' && secId === 'sec-peramalan') {
                 showToast('Akses ditolak. Fitur ini khusus untuk Administrator.', 'warning');
                 return;
             }
 
-            const sections = ['sec-dashboard', 'sec-riwayat', 'sec-stok', 'sec-status', 'sec-produk', 'sec-peramalan', 'sec-kriteria'];
+            const sections = ['sec-dashboard', 'sec-riwayat', 'sec-stok', 'sec-status', 'sec-produk', 'sec-peramalan'];
             sections.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.add('hidden');
@@ -1185,8 +1130,7 @@
                 'sec-stok': ['INPUT DATA STOK', 'Manajemen Stok Gudang.'],
                 'sec-status': ['STATUS & HASIL', 'Status Forecasting.'],
                 'sec-produk': ['DATA PRODUK', 'Katalog Produk UMKM.'],
-                'sec-peramalan': ['PERAMALAN REGRESSION', 'Engine Regresi Linier.'],
-                'sec-kriteria': ['KRITERIA & BOBOT', 'Kriteria SAW & Regresi.']
+                'sec-peramalan': ['PERAMALAN REGRESSION', 'Engine Regresi Linier.']
             };
             if (titles[secId]) {
                 bcrumb.innerText = 'SISTEM PREDIKSI PENJUALAN / ' + titles[secId][0];
@@ -1499,7 +1443,7 @@
             renderAllTables();
         }
 
-        // Dynamic Regression Engine Calculation & Chart Synchronization
+        // Dynamic Regression Engine Calculation & DIRECT Chart Alignment
         function runRegressionCalc() {
             const y1 = parseFloat(document.getElementById('calcX1').value) || 0;
             const y2 = parseFloat(document.getElementById('calcX2').value) || 0;
@@ -1527,23 +1471,15 @@
             document.getElementById('finalYResult').innerText = finalY + " Pcs";
             document.getElementById('finalRestockRec').innerText = recVal + " Pcs";
 
-            // Dynamic Chart Animation Update
+            // Direct Chart Mapping to Periode 1, Periode 2, Periode 3, & Target
             if (dashChartInst) {
-                dashChartInst.data.labels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', `Target (Periode ${targetX})`];
-                dashChartInst.data.datasets[0].data = [45, 52, y1, y2, y3, null];
-                dashChartInst.data.datasets[1].data = [null, null, null, null, y3, finalY];
+                dashChartInst.data.labels = ['Periode 1 (X=1)', 'Periode 2 (X=2)', 'Periode 3 (X=3)', `Target (Periode ${targetX})`];
+                dashChartInst.data.datasets[0].data = [y1, y2, y3, null];
+                dashChartInst.data.datasets[1].data = [null, null, y3, finalY];
                 dashChartInst.update();
             }
 
             showToast('Kalkulasi Regresi Linier & Grafik berhasil diperbarui!', 'success');
-        }
-
-        // Slider Weight Update
-        function updateWeights() {
-            document.getElementById('lblWeightSlope').innerText = document.getElementById('sliderSlope').value + '%';
-            document.getElementById('lblWeightHist').innerText = document.getElementById('sliderHist').value + '%';
-            document.getElementById('lblWeightSeas').innerText = document.getElementById('sliderSeas').value + '%';
-            document.getElementById('lblWeightMargin').innerText = document.getElementById('sliderMargin').value + '%';
         }
 
         // Filter Transactions
@@ -1565,14 +1501,29 @@
         function initDashChart() {
             if (dashChartInst) return;
             const ctx = document.getElementById('dashChart').getContext('2d');
+
+            const y1 = parseFloat(document.getElementById('calcX1')?.value) || 10;
+            const y2 = parseFloat(document.getElementById('calcX2')?.value) || 58;
+            const y3 = parseFloat(document.getElementById('calcX3')?.value) || 20;
+            const targetX = parseFloat(document.getElementById('calcTarget')?.value) || 4;
+
+            const sumX = 1 + 2 + 3;
+            const sumY = y1 + y2 + y3;
+            const sumXY = (1 * y1) + (2 * y2) + (3 * y3);
+            const sumX2 = 1 + 4 + 9;
+            const n = 3;
+            const b = ((n * sumXY) - (sumX * sumY)) / ((n * sumX2) - (sumX * sumX));
+            const a = (sumY - (b * sumX)) / n;
+            const finalY = Math.round(a + (b * targetX));
+
             dashChartInst = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni (Forecast)'],
+                    labels: ['Periode 1 (X=1)', 'Periode 2 (X=2)', 'Periode 3 (X=3)', `Target (Periode ${targetX})`],
                     datasets: [
                         {
                             label: 'Data Terjual Aktual (Pcs)',
-                            data: [45, 52, 60, 58, 70, null],
+                            data: [y1, y2, y3, null],
                             borderColor: '#111827',
                             backgroundColor: '#111827',
                             borderWidth: 2.5,
@@ -1581,7 +1532,7 @@
                         },
                         {
                             label: 'Proyeksi Forecast Regresi',
-                            data: [null, null, null, null, 70, 73],
+                            data: [null, null, y3, finalY],
                             borderColor: '#D97706',
                             backgroundColor: '#D97706',
                             borderDash: [6, 6],
@@ -1609,6 +1560,7 @@
                     },
                     scales: {
                         y: {
+                            beginAtZero: true,
                             grid: { color: '#E2D7C5' },
                             ticks: { font: { family: 'JetBrains Mono', size: 10 } }
                         },
